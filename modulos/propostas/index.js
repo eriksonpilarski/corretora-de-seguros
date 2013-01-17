@@ -62,7 +62,7 @@ $(document).ready(function() {
         },
         carregarTabPropostas: function(dados, callback){
             $.post( "view_lista_pospostas.php", dados, function( data ) {
-                $('tbody', '#tabPropostas').html( data );
+                $('tbody', '#tabPropostas').empty().append( data );
                     callback();
             });
         },
@@ -509,16 +509,17 @@ $(document).ready(function() {
             this.setEventos();
         },
         setEventos: function(){
-
+            this.setButtonFiltros();
+            this.setButtonImprimir();
+            this.setButtonRemoverFiltros();
+            this.setButtonRenovar()
+        },
+        setButtonFiltros: function(){
             this.btnFiltros.click(function(){
                 TelaFiltro.mostrarFormulario();
             });
-            this.btnRemoverFiltros.click(function(){
-                TelaLista.esconderAlerta();
-                TelaFiltro.reiniciar();
-                CtrStatus.reiniciar();
-                CtrMeses.reiniciar();
-            });
+        },
+        setButtonImprimir: function(){
             this.btnImprimir.click(function(){
                     var dia_inicio  = 01,
                         dia_termino = CtrMeses.daysInMonth(CtrMeses.mes_atual, CtrMeses.ano_atual);
@@ -529,9 +530,17 @@ $(document).ready(function() {
                     };
                     $(this).attr("target","_blanck");
                     $(this).attr("href","imprimir.php?proposta="+JSON.stringify(Proposta));
-
-
             });
+        },
+        setButtonRemoverFiltros: function(){
+            this.btnRemoverFiltros.click(function(){
+                TelaLista.esconderAlerta();
+                TelaFiltro.reiniciar();
+                CtrStatus.reiniciar();
+                //CtrMeses.reiniciar();
+            });
+        },
+        setButtonRenovar: function(){
             this.btnRenovar.click(function(){
                 if(  CtrTabelaProposta.alguma_proposta_selecionada()  ){
                     TelaRenovacao.mostrarFormulario();
@@ -539,7 +548,6 @@ $(document).ready(function() {
                     alert("Selecione alguma proposta para poder renovar!!!");
                 }
             });
-
         }
     };
     CtrMenuAction.init();
@@ -582,21 +590,33 @@ $(document).ready(function() {
             //CtrTabelaProposta.popular(Proposta);//não é aqui que devemos chamar isto
         },
         setEventos: function(){
+            this.setButtonAplicarFiltro();
+            this.setButtonCancelar();
+            this.setSubmitFormFiltro();
+        },
+        setButtonAplicarFiltro: function(){
             var me = this;
 
             this.btnAplicarFiltro.click(function(){
                 me.frmFiltro.submit();
-                CtrMeses.removerAtual();
-                CtrTabelaProposta.popular(Proposta);
                 if( Proposta.filtrado() ){
                     TelaLista.mostrarAlerta();
+                    CtrTabelaProposta.popular(Proposta);
+                    if(Proposta.vencimento.inicio && Proposta.vencimento.termino){
+                        CtrMeses.removerAtual();
+                    }
                 }
                 me.esconderFormulario();
             });
+        },
+        setButtonCancelar: function(){
+            var me = this;
             this.btnCancelar.click(function(){
                 me.esconderFormulario();
             });
-            this.frmFiltro.submit(function(event){
+        },
+        setSubmitFormFiltro: function(){
+           this.frmFiltro.submit(function(event){
                 event.preventDefault();
                 //id
                 //renovacao

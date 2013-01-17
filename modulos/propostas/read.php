@@ -72,7 +72,7 @@ if($proposta){
 
 }
 
-//var_dump($sql);
+var_dump($sql);
 
 /*
  * Array propostas, tabela principal
