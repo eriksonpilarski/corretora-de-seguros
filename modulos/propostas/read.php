@@ -13,13 +13,7 @@ if($proposta){
 
     $filtro_status = "";
 
-    if( is_string($proposta->renovacao) ){
-        $proposta->renovacao = FUncAux::data_converte_para_mysql($proposta->renovacao);
-        $filtro .= "renovacao = '{$proposta->renovacao}' AND ";
-    }
-    else{
-        $filtro .= "(renovacao BETWEEN '{$proposta->renovacao->inicio}' AND '{$proposta->renovacao->termino}') AND";
-    }
+    $filtro .= "(renovacao BETWEEN '{$proposta->renovacao->inicio}' AND '{$proposta->renovacao->termino}') AND";
 
     if($proposta->proposta)
         $filtro .= "proposta LIKE '%{$proposta->proposta}%' AND ";
@@ -36,11 +30,7 @@ if($proposta){
     if($proposta->detalhes)
         $filtro .= "detalhes LIKE '%{$proposta->detalhes}%' AND ";
 
-    if( is_string($proposta->vencimento) ){
-        $proposta->vencimento = FUncAux::data_converte_para_mysql($proposta->vencimento);
-        $filtro .= "vencimento = '{$proposta->vencimento}' AND ";
-    }
-    else{
+    if($proposta->vencimento ){
         $filtro .= "(vencimento BETWEEN '{$proposta->vencimento->inicio}' AND '{$proposta->vencimento->termino}') AND";
     }
 
@@ -85,9 +75,13 @@ $propostas = array();
 
 $pdo = DB::conectar();
 $result = $pdo->query($sql);
+
 if($result){
     while (  $obj = $result->fetch(PDO::FETCH_OBJ)  ) {
         $propostas[] = $obj;
     }
+}
+else {
+    var_dump($pdo->errorInfo());
 }
 ?>

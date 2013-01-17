@@ -341,7 +341,7 @@ $(document).ready(function() {
                     event.preventDefault();
                     me.mes_atual = a.attr('href');
                     me.removerAtual();
-                    Proposta.vencimento = {
+                    Proposta.renovacao = {
                         inicio:  me.ano_atual + "-" + me.mes_atual + "-" + dia_inicio,
                         termino: me.ano_atual + "-" + me.mes_atual + "-" + dia_termino
                     };
@@ -389,7 +389,7 @@ $(document).ready(function() {
             this.eAno_ant.children().text(this.ano_atual  - 1);
             this.eAno_prox.children().text(this.ano_atual + 1);
 
-            Proposta.vencimento = {
+            Proposta.renovacao = {
                 inicio:  me.ano_atual + "-" + me.mes_atual + "-" + dia_inicio,
                 termino: me.ano_atual + "-" + me.mes_atual + "-" + dia_termino
             };
@@ -518,7 +518,7 @@ $(document).ready(function() {
                     var dia_inicio  = 01,
                         dia_termino = CtrMeses.daysInMonth(CtrMeses.mes_atual, CtrMeses.ano_atual);
 
-                    Proposta.vencimento = {
+                    Proposta.renovacao = {
                         inicio:  CtrMeses.ano_atual + "-" + CtrMeses.mes_atual + "-" + dia_inicio,
                         termino: CtrMeses.ano_atual + "-" + CtrMeses.mes_atual + "-" + dia_termino
                     };
@@ -600,7 +600,7 @@ $(document).ready(function() {
                 Proposta.tipo       = $("#tipo").val();
                 Proposta.detalhes   = $("#detalhes").val();
                 Proposta.apolice    = $("#apolice").val();
-                Proposta.vencimento = $("#vencimento").val();
+//                Proposta.vencimento = $("#vencimento").val();
                 Proposta.prem_liq   = $("#prem-liq").val();
                 Proposta.comissao   = $("#comissao").val();
                 //status
