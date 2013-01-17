@@ -94,8 +94,11 @@ if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."m
                                 <li><a tabindex="-1" href="#" id="btn-rem-filtros">Remover Filtros</a></li>
                                 <li class="divider"></li>
                                 <li><a tabindex="-1" href="#" id="btn-imprimir">Imprimir</a></li>
+                                <li><a tabindex="-1" href="javascript: alert('void()')" id="btn-imprimir">Abrir Excel</a></li>
                                 <li class="divider"></li>
                                 <li><a tabindex="-1" href="#" id="btn-renovar">Renovar</a></li>
+                                <li class="divider"></li>
+                                <li><a tabindex="-1" href="../usuarios/" id="btn-renovar">Sair</a></li>
                             </ul>
                         </div>
 
