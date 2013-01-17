@@ -66,7 +66,7 @@ if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."m
             option.status_n_check {color: #FAA732}
             option.falta_ass {color: #DA4F49}
             option.ok {color: #49AFCD}
-            
+
             div#filtro input, div#filtro select {
                 margin-bottom: 16px;
             }
@@ -187,10 +187,13 @@ if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."m
                             <label for="segurado">Segurado</label>
                             <input type="text" name="segurado" id="segurado" class="span12"/>
                         </div>
-                        <div class="span4">
+                        <div class="span2">
                             <label for="venc_inicio">Vencimento</label>
-                            De&nbsp;&nbsp;&nbsp;<input type="text"  name="venc_inicio" id="venc_inicio" class="span5"/>
-                            &nbsp;&nbsp;&nbsp;até&nbsp;&nbsp;&nbsp;<input type="text"  name="venc_termino" id="venc_termino" class="span5"/>
+                            <input type="text"  name="venc_inicio" id="venc_inicio" class="span12" placeholder="data inicial"/>
+                        </div>
+                        <div class="span2">
+                            <label for="venc_inicio">&nbsp;</label>
+                            </span><input type="text"  name="venc_termino" id="venc_termino" class="span12" placeholder="data final"/>
                         </div>
                     </div>
                     <div class="row-fluid">

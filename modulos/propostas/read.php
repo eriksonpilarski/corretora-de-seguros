@@ -13,7 +13,13 @@ if($proposta){
 
     $filtro_status = "";
 
-    $filtro .= "(renovacao BETWEEN '{$proposta->renovacao->inicio}' AND '{$proposta->renovacao->termino}') AND";
+    if($proposta->vencimento ){
+        $proposta->vencimento->inicio  = FuncAux::data_converte_para_mysql( $proposta->vencimento->inicio );
+        $proposta->vencimento->termino = FuncAux::data_converte_para_mysql( $proposta->vencimento->termino );
+        $filtro .= "(vencimento BETWEEN '{$proposta->vencimento->inicio}' AND '{$proposta->vencimento->termino}') AND";
+    } else {
+        $filtro .= "(renovacao BETWEEN '{$proposta->renovacao->inicio}' AND '{$proposta->renovacao->termino}') AND";
+    }
 
     if($proposta->proposta)
         $filtro .= "proposta LIKE '%{$proposta->proposta}%' AND ";
@@ -29,10 +35,6 @@ if($proposta){
 
     if($proposta->detalhes)
         $filtro .= "detalhes LIKE '%{$proposta->detalhes}%' AND ";
-
-    if($proposta->vencimento ){
-        $filtro .= "(vencimento BETWEEN '{$proposta->vencimento->inicio}' AND '{$proposta->vencimento->termino}') AND";
-    }
 
     if($proposta->prem_liq)
         $filtro .= "prem_liq LIKE '%{$proposta->prem_liq}%' AND ";
@@ -66,7 +68,7 @@ if($proposta){
 
 }
 
-//var_dump($sql);
+var_dump($sql);
 
 /*
  * Array propostas, tabela principal

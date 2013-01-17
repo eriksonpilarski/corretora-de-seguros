@@ -565,7 +565,8 @@ $(document).ready(function() {
             $("#tipo").val(null);
             $("#detalhes").val(null);
             $("#apolice").val(null);
-            $("#vencimento").val(null);
+            $("#venc_inicio").val(null);
+            $("#venc_termino").val(null);
             $("#prem-liq").val(null);
             $("#comissao").val(null);
             //status
@@ -600,7 +601,10 @@ $(document).ready(function() {
                 Proposta.tipo       = $("#tipo").val();
                 Proposta.detalhes   = $("#detalhes").val();
                 Proposta.apolice    = $("#apolice").val();
-//                Proposta.vencimento = $("#vencimento").val();
+                Proposta.vencimento = {
+                    inicio:  $("#venc_inicio").val(),
+                    termino: $("#venc_termino").val()
+                };
                 Proposta.prem_liq   = $("#prem-liq").val();
                 Proposta.comissao   = $("#comissao").val();
                 //status
