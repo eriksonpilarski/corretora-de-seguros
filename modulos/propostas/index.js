@@ -7,14 +7,20 @@ $(document).ready(function() {
 
         reiniciarObjeto: function(){
             this.id         = "";
-            this.renovacao  = "";
+            this.renovacao = {
+                    inicio: "",
+                    termino: ""
+            };
             this.proposta   = "";
             this.segurado   = "";
             this.cia        = "";
             this.tipo       = "";
             this.detalhes   = "";
             this.apolice    = "";
-            this.vencimento = "";
+            this.vencimento = {
+                    inicio: "",
+                    termino: ""
+            };
             this.prem_liq   = "";
             this.comissao   = "";
             this.status     = {
@@ -27,16 +33,15 @@ $(document).ready(function() {
         filtrado: function(){
             var flag = false;
 
-            if(this.renovacao != "")  {flag = true}
+            //id
+            //renovação
             if(this.proposta != "")   {flag = true}
             if(this.segurado != "")   {flag = true}
             if(this.cia != "")        {flag = true}
             if(this.tipo != "")       {flag = true}
             if(this.detalhes != "")   {flag = true}
             if(this.apolice != "")    {flag = true}
-            if(typeof this.vencimento == 'string'){
-                if(this.vencimento != "") {flag = true}
-            }
+            if(this.vencimento.inicio != "" && this.vencimento != ""){flag = true;}
             if(this.prem_liq != "")  {flag = true}
             if(this.comissao != "")  {flag = true}
 
@@ -277,7 +282,7 @@ $(document).ready(function() {
                 dados,
                 callback;
 
-            dados    = { proposta: JSON.stringify($dados) }
+            dados    = {proposta: JSON.stringify($dados)}
             callback = function(){
                 me.colorirLinhas(  me.elem.find('tr:not([class="cabecalho"])')  );
                 me.colorir_options();
@@ -439,7 +444,7 @@ $(document).ready(function() {
                     me.btnNChecado.estado = "off";
                     Proposta.status.nao_checado = false;
                     atualizar_tabela();
-                    if( ! Proposta.filtrado() ){ TelaLista.esconderAlerta(); }
+                    if( ! Proposta.filtrado() ){TelaLista.esconderAlerta();}
                     CtrTabelaProposta.esconderCtrSalvar();
                     CtrTabelaProposta.mostrarCtrInserir();
                 }
@@ -456,7 +461,7 @@ $(document).ready(function() {
                     me.btnFaltaAss.estado = "off";
                     Proposta.status.falta_ass = false;
                     atualizar_tabela();
-                    if( ! Proposta.filtrado() ){ TelaLista.esconderAlerta(); }
+                    if( ! Proposta.filtrado() ){TelaLista.esconderAlerta();}
                     CtrTabelaProposta.esconderCtrSalvar();
                     CtrTabelaProposta.mostrarCtrInserir();
                 }
@@ -473,7 +478,7 @@ $(document).ready(function() {
                     me.btnOK.estado = "off";
                     Proposta.status.ok = false;
                     atualizar_tabela();
-                    if( ! Proposta.filtrado() ){ TelaLista.esconderAlerta(); }
+                    if( ! Proposta.filtrado() ){TelaLista.esconderAlerta();}
                     CtrTabelaProposta.esconderCtrSalvar();
                     CtrTabelaProposta.mostrarCtrInserir();
                 }
@@ -580,8 +585,8 @@ $(document).ready(function() {
             var me = this;
 
             this.btnAplicarFiltro.click(function(){
-                // validar form - tem que ter pelo menos um campo
                 me.frmFiltro.submit();
+                CtrMeses.removerAtual();
                 CtrTabelaProposta.popular(Proposta);
                 if( Proposta.filtrado() ){
                     TelaLista.mostrarAlerta();
@@ -595,6 +600,10 @@ $(document).ready(function() {
                 event.preventDefault();
                 //id
                 //renovacao
+                Proposta.renovacao = {
+                    inicio:  "",
+                    termino: ""
+                };
                 Proposta.proposta   = $("#proposta").val();
                 Proposta.segurado   = $("#segurado").val();
                 Proposta.cia        = $("#cia").val();
