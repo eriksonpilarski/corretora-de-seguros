@@ -47,7 +47,7 @@ if($result){
     <tr>
         <td>
             <input type="hidden" name="" value="null" />
-            <input type="text" value="<?php echo FuncAux::data_converte_para_visualizar($proposta->renovacao) ?>" class="input-mini" />
+            <input type="text" value="<?php echo FuncAux::addUmAno($proposta->renovacao) ?>" class="input-mini" />
         </td>
         <td>
             <input type="text" value="" class="input-mini "/><!-- proposta -->
