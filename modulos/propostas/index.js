@@ -86,6 +86,126 @@ $(document).ready(function() {
         }
     };
 
+    var CtrMeses = {
+        elem: $('#ctr-meses'),  // elemento principal
+        eAno_ant: {},           // elemento <li> ano anterior
+        eAno_prox: {},          // elemento <li> ano posterior
+        lis: {},                // lista com elementos <li> sem os anos
+        ano_atual: 0,           // ano atual
+        mes_atual: 0,           // mês atual
+        mes_dia_pri: 1,         // primeiro dia do mês
+        mes_dia_ulti: 0,        // último dia do mês
+
+        init: function(){
+            this.lis       = this.elem.find('li:not([id])');
+            this.eAno_ant  = this.elem.find('#btn-ano-ant');
+            this.eAno_prox = this.elem.find('#btn-ano-prox');
+            this.removerAtual();
+            this.setEventos();
+            this.hoje();
+        },
+        hoje: function(){
+            var hoje = new Date();
+            this.mes_atual = hoje.getMonth()+1;
+            this.ano_atual = hoje.getFullYear();
+            this.mes_dia_ulti = this.daysInMonth(this.mes_atual, this.ano_atual);
+        },
+        retDataAtualParaMysql: function($primeira_ou_ultima){
+
+            if($primeira_ou_ultima == "primeira")
+                return this.ano_atual + "-" + this.mes_atual + "-" + this.mes_dia_pri;
+
+            else if($primeira_ou_ultima == "ultima")
+                return this.ano_atual + "-" + this.mes_atual + "-" + this.mes_dia_ulti;
+
+        },
+        removerAtual: function(){
+            this.lis.each(function(){
+                $(this).removeClass('active');
+            });
+        },
+        //http://blog.lppjunior.com/javascript-ultimo-dia-do-mes/
+        daysInMonth: function (month,year) {
+            var dd = new Date(year, month, 0);
+            return dd.getDate();
+        },
+        // =======================================================
+        setEventos: function(){
+            this.setClickMeses();
+            this.setClickAnos();
+        },
+        setClickMeses: function(){
+            var me = this;
+            this.lis.each(function(){
+                var li = $(this),
+                    a  = $(this).children();
+
+                a.unbind('click');
+                a.click(function(event){
+                    event.preventDefault();
+                    me.removerAtual();
+                    li.addClass('active');
+                    me.mes_atual  = a.attr('href');
+                    me.mes_dia_ulti  = me.daysInMonth(me.mes_atual, me.ano_atual);
+                    Proposta.renovacao = {
+                        inicio:  me.retDataAtualParaMysql('primeira'),
+                        termino: me.retDataAtualParaMysql('ultima')
+                    };
+                    CtrTabelaProposta.popular(Proposta);
+                    CtrTabelaProposta.tbody.show();         // caso esteja hiden
+                    CtrTabelaProposta.mostrarCtrInserir();  // caso esteja hiden
+                });
+            });
+        },
+        setClickAnos: function(){
+            var me = this;
+            var trocaAno = function(){
+                me.eAno_ant.fadeOut(function(){
+                    me.eAno_ant.children().text(  me.ano_atual - 1  );
+                    me.eAno_ant.fadeIn();
+                });
+                me.eAno_prox.fadeOut(function(){
+                    me.eAno_prox.children().text(  me.ano_atual + 1  );
+                    me.eAno_prox.fadeIn();
+                });
+                me.removerAtual();
+                TelaLista.esconderAlerta();
+                CtrTabelaProposta.esconderCtrInserir();
+                CtrTabelaProposta.esconderCtrSalvar();
+                CtrTabelaProposta.tbody.hide();
+                CtrStatus.reiniciar();
+                CtrMeses.mes_atual = 0; // zerar o mês atual
+            };
+            this.eAno_ant.click(function(){
+                me.ano_atual = me.ano_atual - 1;
+                trocaAno();
+            });
+            this.eAno_prox.click(function(){
+                me.ano_atual = me.ano_atual + 1;
+                trocaAno();
+            });
+        },
+        atualizar: function(){
+            this.removerAtual();
+            this.lis.eq(this.mes_atual-1).addClass('active');
+            this.eAno_ant.children().text(this.ano_atual  - 1);
+            this.eAno_prox.children().text(this.ano_atual + 1);
+        },
+        reiniciar: function(){
+            console.log("o reiniciar do CtrMeses está desligado (393)");
+//            var me = this,
+//                dia_inicio  = 1,
+//                dia_termino = this.daysInMonth(this.mes_atual, this.ano_atual);
+//
+//            this.removerAtual();
+//            this.lis.eq(this.mes_atual-1).addClass('active');
+//            this.eAno_ant.children().text(this.ano_atual  - 1);
+//            this.eAno_prox.children().text(this.ano_atual + 1);
+        }
+    };
+    CtrMeses.init();
+    CtrMeses.atualizar();
+
     var CtrTabelaProposta = {
         elem: $("#tabPropostas"),
         thead: {},
@@ -107,6 +227,12 @@ $(document).ready(function() {
             this.btnInserir        = $("#btn-ins-prop");
 
             this.setEventos();
+            Proposta.renovacao = {
+                inicio:  CtrMeses.retDataAtualParaMysql('primeira'),
+                termino: CtrMeses.retDataAtualParaMysql('ultima')
+            };
+            this.popular(Proposta);
+
         },
         setEventos: function(){
             this.setAlterarTabela();
@@ -296,115 +422,6 @@ $(document).ready(function() {
     }
     CtrTabelaProposta.init();
 
-    var CtrMeses = {
-        elem: $('#ctr-meses'),  // elemento principal
-        eAno_ant: {},           // elemento <li> ano anterior
-        eAno_prox: {},          // elemento <li> ano posterior
-        lis: {},                // lista com elementos <li> sem os anos
-        ano_atual: 2013,        // ano atual
-        mes_atual: 1,           // mês atual
-
-        init: function(){
-            var hoje;
-
-            this.lis       = this.elem.find('li:not([id])');
-            this.eAno_ant  = this.elem.find('#btn-ano-ant');
-            this.eAno_prox = this.elem.find('#btn-ano-prox');
-            this.removerAtual();
-            this.setEventos();
-
-            hoje = new Date();
-            this.mes_atual = hoje.getMonth()+1;
-            this.ano_atual = hoje.getFullYear();
-        },
-        removerAtual: function(){
-            this.lis.each(function(){
-                $(this).removeClass('active');
-            });
-        },
-        //http://blog.lppjunior.com/javascript-ultimo-dia-do-mes/
-        daysInMonth: function (month,year) {
-            var dd = new Date(year, month, 0);
-            return dd.getDate();
-        },
-        // =======================================================
-        setEventos: function(){
-            this.setClickMeses();
-            this.setClickAnos();
-        },
-        setClickMeses: function(){
-            var me = this;
-            this.lis.each(function(){
-                var li = $(this),
-                    a  = $(this).children();
-
-                a.unbind('click');
-                a.click(function(event){
-                    var dia_inicio  = 01,
-                        dia_termino = me.daysInMonth(me.mes_atual, me.ano_atual);
-
-                    event.preventDefault();
-                    me.mes_atual = a.attr('href');
-                    me.removerAtual();
-                    Proposta.renovacao = {
-                        inicio:  me.ano_atual + "-" + me.mes_atual + "-" + dia_inicio,
-                        termino: me.ano_atual + "-" + me.mes_atual + "-" + dia_termino
-                    };
-                    CtrTabelaProposta.tbody.show();
-                    CtrTabelaProposta.popular(Proposta);
-                    li.addClass('active');
-                    CtrTabelaProposta.mostrarCtrInserir();
-                });
-            });
-        },
-        setClickAnos: function(){
-            var me = this;
-            var trocaAno = function(){
-                me.eAno_ant.fadeOut(function(){
-                    me.eAno_ant.children().text(  me.ano_atual - 1  );
-                    me.eAno_ant.fadeIn();
-                });
-                me.eAno_prox.fadeOut(function(){
-                    me.eAno_prox.children().text(  me.ano_atual + 1  );
-                    me.eAno_prox.fadeIn();
-                });
-                me.removerAtual();
-                CtrTabelaProposta.tbody.hide();
-                TelaLista.esconderAlerta();
-                CtrTabelaProposta.esconderCtrSalvar();
-                CtrTabelaProposta.esconderCtrInserir();
-                Proposta.reiniciarObjeto();
-            };
-            this.eAno_ant.click(function(){
-                me.ano_atual = me.ano_atual - 1;
-                trocaAno();
-            });
-            this.eAno_prox.click(function(){
-                me.ano_atual = me.ano_atual + 1;
-                trocaAno();
-            });
-        },
-        reiniciar: function(){
-            var me = this,
-                dia_inicio  = 1,
-                dia_termino = this.daysInMonth(this.mes_atual, this.ano_atual);
-
-            this.removerAtual();
-            this.lis.eq(this.mes_atual-1).addClass('active');
-            this.eAno_ant.children().text(this.ano_atual  - 1);
-            this.eAno_prox.children().text(this.ano_atual + 1);
-
-            Proposta.renovacao = {
-                inicio:  me.ano_atual + "-" + me.mes_atual + "-" + dia_inicio,
-                termino: me.ano_atual + "-" + me.mes_atual + "-" + dia_termino
-            };
-            CtrTabelaProposta.tbody.show();
-            CtrTabelaProposta.popular(Proposta);
-        }
-    };
-    CtrMeses.init();
-    CtrMeses.reiniciar();
-
     var CtrStatus = {
         btnNChecado: {},
         btnFaltaAss: {},
@@ -521,15 +538,12 @@ $(document).ready(function() {
         },
         setButtonImprimir: function(){
             this.btnImprimir.click(function(){
-                    var dia_inicio  = 01,
-                        dia_termino = CtrMeses.daysInMonth(CtrMeses.mes_atual, CtrMeses.ano_atual);
-
-                    Proposta.renovacao = {
-                        inicio:  CtrMeses.ano_atual + "-" + CtrMeses.mes_atual + "-" + dia_inicio,
-                        termino: CtrMeses.ano_atual + "-" + CtrMeses.mes_atual + "-" + dia_termino
-                    };
-                    $(this).attr("target","_blanck");
-                    $(this).attr("href","imprimir.php?proposta="+JSON.stringify(Proposta));
+                Proposta.renovacao = {
+                    inicio:  CtrMeses.retDataAtualParaMysql('primeira'),
+                    termino: CtrMeses.retDataAtualParaMysql('ultima')
+                };
+                $(this).attr("target","_blanck");
+                $(this).attr("href","imprimir.php?proposta="+JSON.stringify(Proposta));
             });
         },
         setButtonRemoverFiltros: function(){
@@ -537,7 +551,14 @@ $(document).ready(function() {
                 TelaLista.esconderAlerta();
                 TelaFiltro.reiniciar();
                 CtrStatus.reiniciar();
-                //CtrMeses.reiniciar();
+                if(CtrMeses.mes_atual){
+                    Proposta.renovacao = {
+                        inicio:  CtrMeses.retDataAtualParaMysql('primeira'),
+                        termino: CtrMeses.retDataAtualParaMysql('ultima')
+                    };
+                    CtrTabelaProposta.tbody.show();
+                    CtrTabelaProposta.popular(Proposta);
+                }
             });
         },
         setButtonRenovar: function(){
@@ -587,7 +608,6 @@ $(document).ready(function() {
         reiniciar: function(){
             this.limparFormulario();
             Proposta.reiniciarObjeto();
-            //CtrTabelaProposta.popular(Proposta);//não é aqui que devemos chamar isto
         },
         setEventos: function(){
             this.setButtonAplicarFiltro();
@@ -656,7 +676,6 @@ $(document).ready(function() {
         },
         setButtonCancelar: function() {
             var me = this;
-
             this.btnCancelar.click(function(){
                 me.esconderFormulario();
             });

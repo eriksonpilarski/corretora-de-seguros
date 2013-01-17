@@ -15,13 +15,13 @@ if($proposta){
 
     if( $proposta->renovacao->inicio && $proposta->renovacao->termino ){
 
-        $filtro .= "(renovacao BETWEEN '{$proposta->renovacao->inicio}' AND '{$proposta->renovacao->termino}') AND";
+        $filtro .= "(renovacao BETWEEN '{$proposta->renovacao->inicio}' AND '{$proposta->renovacao->termino}') AND ";
 
     } else {
 
         $proposta->vencimento->inicio  = FuncAux::data_converte_para_mysql( $proposta->vencimento->inicio );
         $proposta->vencimento->termino = FuncAux::data_converte_para_mysql( $proposta->vencimento->termino );
-        $filtro .= "(vencimento BETWEEN '{$proposta->vencimento->inicio}' AND '{$proposta->vencimento->termino}') AND";
+        $filtro .= "(vencimento BETWEEN '{$proposta->vencimento->inicio}' AND '{$proposta->vencimento->termino}') AND ";
 
     }
 
