@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var ajax = {
-        crud: function(dados){
-            $.post( "crud.php", dados, function( resp ) {
+        logar: function(dados){
+            $.post( "index_action.php", dados, function( resp ) {
                 if(resp == ""){
                     $(location).attr("href", "../propostas/index.php");
                 } else {
@@ -39,7 +39,7 @@ $(document).ready(function(){
 
                 if( ! form_is_valid ) return false;
 
-                ajax.crud(  $(this).serialize()  );
+                ajax.logar(  $(this).serialize()  );
             });
         }
     }

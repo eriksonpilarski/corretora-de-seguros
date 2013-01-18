@@ -21,16 +21,9 @@ try {
     if( !$login || !$pass )
         throw new Exception("Preencha campo login e senha !");
 
-    $sql = "SELECT * FROM usuarios WHERE login = '$login' AND senha = '$pass'";
-    $pdo = DB::conectar();
-    $_result = $result = $pdo->query($sql);
+    $obj = new Usuarios();
 
-    $erro = $pdo->errorInfo();
-    if( $erro[2]  ){
-        throw new Exception($erro[1]." - ".$erro[2]);
-    }
-
-    $usuario = $result->fetch(PDO::FETCH_OBJ);
+    $usuario = $obj->login($login, $pass);
 
     if(  ! $usuario   )
         throw new Exception("Login ou senha incorretos !");

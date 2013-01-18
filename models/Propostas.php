@@ -11,6 +11,121 @@ class Propostas {
 
     /**
      *
+     * @param type $propostas
+     * @throws Exception
+     */
+    function insert($propostas){
+        if( ! $propostas){
+            throw new Exception(get_class($this).": Impossível inserir/renovar sem as propostas?");
+        }
+
+        $sqls = array();
+
+        $propostas = json_decode($propostas);
+        foreach($propostas as $proposta){
+            $proposta->renovacao  = DatasFuncAux::data_converte_para_mysql( $proposta->renovacao );
+            $proposta->vencimento = DatasFuncAux::data_converte_para_mysql( $proposta->vencimento );
+
+            $s  = "";
+            $s  = "INSERT INTO propostas VALUES ( ";
+            $s .= "null, ".
+                    "'{$proposta->renovacao}', ".
+                    "'{$proposta->proposta}', ".
+                    "'{$proposta->segurado}', ".
+                    "'{$proposta->cia}', ".
+                    "'{$proposta->tipo}', ".
+                    "'{$proposta->detalhes}', ".
+                    "'{$proposta->apolice}', ".
+                    "'{$proposta->vencimento}', ".
+                    "'{$proposta->prem_liq}', ".
+                    "'{$proposta->comissao}', ".
+                    "'{$proposta->status}' )";
+            $sqls[] = $s;
+        }
+//        var_dump($sqls);
+
+        $pdo = DB::conectar();
+        foreach($sqls as $sql){
+            $result = $pdo->query($sql);
+            if(!$result){
+                $err = $pdo->errorInfo();
+                throw new Exception($err[2], $err[1]);
+            }
+        }
+    }
+
+
+    /**
+     *
+     * @param type $propostas
+     * @throws Exception
+     */
+    function update($propostas){
+        if( ! $propostas){
+            throw new Exception(get_class($this).": Impossível atualizar sem as propostas?");
+        }
+
+
+        $sqls = array();
+
+        $propostas = json_decode($propostas);
+        foreach($propostas as $proposta){
+            $proposta->renovacao  = DatasFuncAux::data_converte_para_mysql( $proposta->renovacao );
+            $proposta->vencimento = DatasFuncAux::data_converte_para_mysql( $proposta->vencimento );
+
+            $s  = "";
+            $s  = "UPDATE propostas SET ";
+            $s .= "id = {$proposta->id}, ".
+                    "renovacao = '{$proposta->renovacao}', ".
+                    "proposta = '{$proposta->proposta}', ".
+                    "segurado = '{$proposta->segurado}', ".
+                    "detalhes = '{$proposta->detalhes}', ".
+                    "cia = '{$proposta->cia}', ".
+                    "tipo = '{$proposta->tipo}', ".
+                    "apolice = '{$proposta->apolice}', ".
+                    "vencimento = '{$proposta->vencimento}', ".
+                    "prem_liq = '{$proposta->prem_liq}', ".
+                    "comissao = '{$proposta->comissao}', ".
+                    "status = '{$proposta->status}'";
+            $s .= "WHERE id = {$proposta->id}";
+            $sqls[] = $s;
+        }
+//        var_dump($sqls);
+
+        $pdo = DB::conectar();
+        foreach($sqls as $sql){
+            $result = $pdo->query($sql);
+            if(!$result){
+                $err = $pdo->errorInfo();
+                throw new Exception($err[2], $err[1]);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param type $id
+     * @throws Exception
+     */
+    function delete($id){
+
+        if( !$id ){
+            throw new Exception(get_class($this).": Como deletar sem o ID ?");
+        }
+
+        $sql = "DELETE FROM propostas WHERE id = $id LIMIT 1";
+
+//        var_dump($sql);
+        $pdo = DB::conectar();
+        $result = $pdo->query($sql);
+        if(!$result){
+            $err = $pdo->errorInfo();
+            throw new Exception($err[2], $err[1]);
+        }
+    }
+
+    /**
+     *
      * @param type $prop_filtro
      * @return type
      */
@@ -121,7 +236,7 @@ class Propostas {
 
 
     /**
-     *
+     * Ret
      * @return type
      */
     static function retComboStatus(){

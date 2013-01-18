@@ -1,4 +1,9 @@
-<?php require "../../class/App.php"; ?>
+<?php
+
+require "../../class/App.php";
+
+if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."modulos/usuarios/")
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
