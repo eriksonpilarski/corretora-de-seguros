@@ -319,6 +319,7 @@ $(document).ready(function() {
             this.btnInserir.click(function(){
                 $.post( "view_lista_linha.php", function( data ) {
                         me.tbody.append( data );
+                        me.mascaras();
                     }
                 );
                 me.mostrarCtrSalvar();
@@ -372,6 +373,10 @@ $(document).ready(function() {
 
             return flag;
         },
+        mascaras: function(){
+            this.tbody.find('input[name="dt-renova"]').mask("99/99/9999");
+            this.tbody.find('input[name="dt-venc"]').mask("99/99/9999");
+        },
         colorir_options: function(){
             this.elem.find("select[title='status']").each(function(){
                 $(this).find("option").eq(0).addClass("status_n_check");
@@ -412,6 +417,7 @@ $(document).ready(function() {
             callback = function(){
                 me.colorirLinhas(  me.elem.find('tr:not([class="cabecalho"])')  );
                 me.colorir_options();
+                me.mascaras();
                 me.setComboStatus();
                 me.setAlterarTabela();
                 me.setButtonsDeletar();

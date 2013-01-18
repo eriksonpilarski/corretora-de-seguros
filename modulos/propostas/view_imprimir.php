@@ -86,7 +86,7 @@ $html .= "</table>";
 /**
  * PDF
  */
-require("../../biblio/mpdf54/mpdf.php");
+require("../../php/mpdf54/mpdf.php");
 $mpdf = new mPDF('c','A4','','',15,15,15,15,15,15);
 $mpdf->SetDisplayMode('fullpage');
 $mpdf->WriteHTML( file_get_contents('view_imprimir.css') , 1);

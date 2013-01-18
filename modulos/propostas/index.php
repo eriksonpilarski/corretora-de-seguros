@@ -37,11 +37,12 @@ if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."m
                                 <li><a tabindex="-1" href="#" id="btn-rem-filtros">Remover Filtros</a></li>
                                 <li><a tabindex="-1" href="index.php" id="btn-rem-filtros">Ver data autal</a></li>
                                 <li class="divider"></li>
+                                <li><a tabindex="-1" href="#" id="btn-renovar">Renovar</a></li>
+                                <li class="divider"></li>
                                 <li><a tabindex="-1" href="#" id="btn-imprimir">Imprimir</a></li>
                                 <li><a tabindex="-1" href="javascript: alert('void()')" id="btn-imprimir">Abrir Excel</a></li>
                                 <li class="divider"></li>
-                                <li><a tabindex="-1" href="#" id="btn-renovar">Renovar</a></li>
-                                <li class="divider"></li>
+                                <li><a tabindex="-1" href="javascript: alert('void()')" id="btn-backup">Backup</a></li>
                                 <li><a tabindex="-1" href="../usuarios/" id="btn-renovar">Sair</a></li>
                             </ul>
                         </div>
@@ -236,6 +237,7 @@ if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."m
 
         <script type="text/javascript" src="<?php echo App::getAppPath(); ?>js/jquery1.8.3.min.js"></script>
         <script type="text/javascript" src="<?php echo App::getAppPath(); ?>js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<?php echo App::getAppPath(); ?>js/jquery.maskedinput-1.3.min.js"></script>
         <script type="text/javascript" src="index.js"></script>
     </body>
 </html>

@@ -8,10 +8,10 @@ require "../../class/App.php";
 ?>
 <tr title="novo">
     <td>
-        <input type="hidden"  value="null"/><!-- id -->
+        <input type="hidden" value="null"/><!-- id -->
     </td>
     <td>
-        <input type="text" class="input-mini "/><!-- renovação -->
+        <input type="text" class="input-mini " name="dt-renova"/><!-- renovação -->
     </td>
     <td>
         <input type="text" class="input-mini "/><!-- proposta -->
@@ -42,7 +42,7 @@ require "../../class/App.php";
         <input type="text" class="input-small" /><!-- apolice -->
     </td>
     <td>
-        <input type="text" class="input-small "/><!-- vencimento -->
+        <input type="text" class="input-small " name="dt-venc"/><!-- vencimento -->
     </td>
     <td>
         <input type="text" class="input-small "/><!-- prémio liquido -->

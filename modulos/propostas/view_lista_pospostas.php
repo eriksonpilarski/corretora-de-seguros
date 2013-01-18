@@ -39,7 +39,8 @@ try {
             <input type="hidden" name="" value="<?php echo $proposta->id ?>" />
         </td>
         <td>
-            <input type="text" value="<?php echo DatasFuncAux::data_converte_para_visualizar($proposta->renovacao) ?>" class="input-mini "/>
+            <input type="text" class="input-mini" name="dt-renova"
+                   value="<?php echo DatasFuncAux::data_converte_para_visualizar($proposta->renovacao) ?>" />
         </td>
         <td>
             <input type="text" value="<?php echo $proposta->proposta ?>" class="input-mini "/>
@@ -72,8 +73,8 @@ try {
             <input type="text" value="<?php echo $proposta->apolice ?>" class="input-small" />
         </td>
         <td>
-            <input type="text" value="<?php echo DatasFuncAux::data_converte_para_visualizar($proposta->vencimento) ?>"
-                   class="input-small "/>
+            <input type="text"  class="input-small" name="dt-renova"
+                   value="<?php echo DatasFuncAux::data_converte_para_visualizar($proposta->vencimento) ?>" />
         </td>
         <td>
             <input type="text" value="<?php echo $proposta->prem_liq ?>" class="input-small "/>
