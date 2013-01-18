@@ -4,7 +4,7 @@
  */
 
 /**
- * 
+ *
  */
 require "../../class/App.php";
 
@@ -17,24 +17,29 @@ $login = (isset($_POST['login'])) ? $_POST['login'] : null ;
 $pass  = (isset($_POST['pass'])) ? $_POST['pass'] : null ;
 
 try {
-    
+
     if( !$login || !$pass )
         throw new Exception("Preencha campo login e senha !");
-    
+
     $sql = "SELECT * FROM usuarios WHERE login = '$login' AND senha = '$pass'";
     $pdo = DB::conectar();
-    $result = $pdo->query($sql);
-    
-//    if( $pdo->errorInfo()[2] );
-//        throw new Exception($pdo->errorInfo()[1]." - ".$pdo->errorInfo()[2]);
+    $_result = $result = $pdo->query($sql);
 
-    if(!$result)
-        throw new Exception("login ou senha incorretos !");
-    
-    # criar sessions
-    $_SESSION['id-usuario'] = $result->fetch(PDO::FETCH_OBJ)->id;
+    $erro = $pdo->errorInfo();
+    if( $erro[2]  ){
+        throw new Exception($erro[1]." - ".$erro[2]);
+    }
 
-    
+    $usuario = $result->fetch(PDO::FETCH_OBJ);
+
+    if(  ! $usuario   )
+        throw new Exception("Login ou senha incorretos !");
+
+
+    # Criar sessions
+    $_SESSION['id-usuario'] = $usuario ->id;
+
+
 } catch (Exception $exc){
     echo $exc->getMessage();
 }

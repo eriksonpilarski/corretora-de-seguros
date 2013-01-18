@@ -3,20 +3,42 @@ $(document).ready(function(){
         crud: function(dados){
             $.post( "crud.php", dados, function( resp ) {
                 if(resp == ""){
-                    $(location).attr("href", "../propostas/");
+                    $(location).attr("href", "../propostas/index.php");
+                } else {
+                    $('#msg').empty().append( resp );
+                    $('#msg').parent().show(700);
                 }
-
             });
         }
     };
-    telaLogin = {
+    var telaLogin = {
         form: $("form"),
         init: function(){
             this.setForm();
         },
         setForm: function(){
             this.form.submit(function(event){
+                var form_is_valid;
+
                 event.preventDefault();
+
+                function validaCampo(ctr){
+                    if( ctr.val() == "" ){
+                        ctr.focus();
+                        ctr.parent().parent().addClass('error');
+                        ctr.siblings().show(500);
+                        form_is_valid = false;
+                    } else {
+                        ctr.parent().parent().removeClass('error');
+                        ctr.siblings().hide(500);
+                        form_is_valid = true;
+                    }
+                }
+                validaCampo( $('#pass') )
+                validaCampo( $('#login') )
+
+                if( ! form_is_valid ) return false;
+
                 ajax.crud(  $(this).serialize()  );
             });
         }

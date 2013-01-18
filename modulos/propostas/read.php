@@ -7,6 +7,7 @@
 $sql    = "SELECT * FROM propostas";
 $filtro = "";
 
+//var_dump(json_decode($proposta));
 
 if($proposta){
     $proposta = json_decode($proposta);

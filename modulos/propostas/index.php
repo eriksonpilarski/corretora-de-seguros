@@ -92,6 +92,7 @@ if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."m
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                 <li><a tabindex="-1" href="#" id="btn-filtros">Filtros</a></li>
                                 <li><a tabindex="-1" href="#" id="btn-rem-filtros">Remover Filtros</a></li>
+                                <li><a tabindex="-1" href="index.php" id="btn-rem-filtros">Ver data autal</a></li>
                                 <li class="divider"></li>
                                 <li><a tabindex="-1" href="#" id="btn-imprimir">Imprimir</a></li>
                                 <li><a tabindex="-1" href="javascript: alert('void()')" id="btn-imprimir">Abrir Excel</a></li>
