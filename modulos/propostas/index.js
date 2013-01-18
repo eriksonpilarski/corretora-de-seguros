@@ -726,7 +726,7 @@ $(document).ready(function() {
         },
         idsSelecionados: function(){
             var id = [];
-            $('input:checked[type="checkbox"]', "#tabPropostas").each(function(){
+            CtrTabelaProposta.tbody.find('input:checked[type="checkbox"]').each(function(){
                 id.push( $(this)
                     .parent()
                     .parent()
