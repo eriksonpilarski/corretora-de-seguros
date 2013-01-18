@@ -1,5 +1,7 @@
 <?php
-
+/**
+ *
+ */
 
 /**
  *
@@ -7,47 +9,33 @@
 require "../../class/App.php";
 
 
-/**
- * Recebendo dados
- */
-$ids = (isset($_POST['ids'])) ? $_POST['ids'] : null ;
+try {
+
+    /*
+     *
+     */
+    $ids = (isset($_POST['ids'])) ? $_POST['ids'] : null ;
+
+    $obj    = new Propostas();
+    $filtro = $obj->retFiltroTabRenovacoes($ids);
+
+    $renovacoes = array();
+    $renovacoes = Propostas::getObjects($filtro);
 
 
-/**
- *  Consulta SQL
- */
-$sql = "SELECT * FROM propostas";
+} catch (Exception $ex){
 
-
-if($ids){
-
-    $ids = implode(", ", json_decode($ids) );
-    $sql = $sql . " WHERE id IN($ids)";
+    var_dump($ex->getMessage());
 
 }
-
-//var_dump($sql);
-
-/**
- * Array renovacoes
- */
-$renovacoes = array();
-
-$pdo = DB::conectar();
-$result = $pdo->query($sql);
-if($result){
-    while (  $obj = $result->fetch(PDO::FETCH_OBJ)  ) {
-        $renovacoes[] = $obj;
-    }
-}
-
 
 ?>
+
 <?php foreach ($renovacoes as $proposta): ?>
     <tr>
         <td>
             <input type="hidden" name="" value="null" />
-            <input type="text" value="<?php echo FuncAux::addUmAno($proposta->renovacao) ?>" class="input-mini" />
+            <input type="text" value="<?php echo DatasFuncAux::addUmAno($proposta->renovacao) ?>" class="input-mini" />
         </td>
         <td>
             <input type="text" value="" class="input-mini "/><!-- proposta -->
@@ -81,7 +69,7 @@ if($result){
             <input type="text" value="<?php echo $proposta->apolice ?>" class="input-small"/>
         </td>
         <td>
-            <input type="text" value="<?php echo FuncAux::addUmAno($proposta->vencimento) ?>" class="input-small"/>
+            <input type="text" value="<?php echo DatasFuncAux::addUmAno($proposta->vencimento) ?>" class="input-small"/>
         </td>
         <td>
             <input type="text" value="" class="input-mini"/>

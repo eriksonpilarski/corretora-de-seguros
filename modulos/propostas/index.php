@@ -11,65 +11,8 @@ if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."m
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>SEG</title>
         <link href="<?php echo App::getAppPath(); ?>css/bootstrap.min.css" rel="stylesheet" media="screen" />
+        <link href="index.css" rel="stylesheet" media="screen" />
         <style type="text/css" media="all">
-            .btn-group > .btn:first-child {
-                margin-top: 2px;
-                margin-right: 2px;
-            }
-            .table {
-                border: 2px solid #F5F5F5;
-            }
-            .table th, .table td {
-                text-align: center;
-                line-height: 12px;
-                padding: 2px 0px;
-            }
-            .table thead th {
-                vertical-align: middle;
-            }
-            .table tr.cabecalho {
-                background-color: #F5F5F5;
-                color: #767676;
-                font-size: 12px
-            }
-            input[type='text'], select {
-                font-size: 10px;
-                margin-bottom: 0px;
-                text-align: center;
-            }
-            input[type='text'] {
-                height: 14px;
-                line-height: 14px;
-            }
-            select {
-                height: 24px;
-                line-height: 24px;
-            }
-            input[type='text'].nao-validado, select.nao-validado {
-                border-color: red;
-                color: red;
-            }
-            input[type='text'].status_n_check, select.status_n_check {
-                color: #FAA732;
-            }
-            input[type='text'].falta_ass, select.falta_ass {
-                color: #DA4F49;
-            }
-            input[type='text'].ok, select.ok {
-                color: #49AFCD;
-            }
-            div.status button {
-                width: 150px;
-                margin-top:5px
-            }
-
-            option.status_n_check {color: #FAA732}
-            option.falta_ass {color: #DA4F49}
-            option.ok {color: #49AFCD}
-
-            div#filtro input, div#filtro select {
-                margin-bottom: 16px;
-            }
         </style>
     </head>
     <body>

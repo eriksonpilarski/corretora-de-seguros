@@ -5,15 +5,6 @@
  */
 require "../../class/App.php";
 
-/**
- * Array combo status
- */
-$arrComboStatus = array(
-    "n_check"   => "Não checado",
-    "falta_ass" => "Falta assinatura",
-    "ok"        => "OK",
-);
-
 ?>
 <tr title="novo">
     <td>

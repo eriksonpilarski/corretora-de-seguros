@@ -1,4 +1,7 @@
 <?php
+/**
+ *
+ */
 
 /**
  *
@@ -6,13 +9,29 @@
 require "../../class/App.php";
 
 
-/**
- * Recebendo dados
- */
-$proposta = (isset($_POST['proposta'])) ? $_POST['proposta'] : null ;
-require "read.php";
+try {
+
+    /*
+     *
+     */
+    $proposta_filtro = (isset($_POST['proposta'])) ? $_POST['proposta'] : null ;
+
+    $obj    = new Propostas();
+    $filtro = $obj->retFiltroTabPropostas($proposta_filtro);
+
+    $propostas = array();
+    $propostas = Propostas::getObjects($filtro);
+
+
+} catch (Exception $ex){
+
+    var_dump($ex->getMessage());
+
+}
 
 ?>
+
+
 <?php foreach ($propostas as $proposta): ?>
     <tr>
         <td>
@@ -20,7 +39,7 @@ require "read.php";
             <input type="hidden" name="" value="<?php echo $proposta->id ?>" />
         </td>
         <td>
-            <input type="text" value="<?php echo FuncAux::data_converte_para_visualizar($proposta->renovacao) ?>" class="input-mini "/>
+            <input type="text" value="<?php echo DatasFuncAux::data_converte_para_visualizar($proposta->renovacao) ?>" class="input-mini "/>
         </td>
         <td>
             <input type="text" value="<?php echo $proposta->proposta ?>" class="input-mini "/>
@@ -53,7 +72,7 @@ require "read.php";
             <input type="text" value="<?php echo $proposta->apolice ?>" class="input-small" />
         </td>
         <td>
-            <input type="text" value="<?php echo FuncAux::data_converte_para_visualizar($proposta->vencimento) ?>"
+            <input type="text" value="<?php echo DatasFuncAux::data_converte_para_visualizar($proposta->vencimento) ?>"
                    class="input-small "/>
         </td>
         <td>

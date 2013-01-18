@@ -17,8 +17,8 @@ switch ($ac) {
             $sqls = array();
             $propostas = json_decode($propostas);
             foreach($propostas as $proposta){
-                $proposta->renovacao  = FuncAux::data_converte_para_mysql( $proposta->renovacao );
-                $proposta->vencimento = FuncAux::data_converte_para_mysql( $proposta->vencimento );
+                $proposta->renovacao  = DatasFuncAux::data_converte_para_mysql( $proposta->renovacao );
+                $proposta->vencimento = DatasFuncAux::data_converte_para_mysql( $proposta->vencimento );
 
                 $s  = "";
                 $s  = "UPDATE propostas SET ";
@@ -56,8 +56,8 @@ switch ($ac) {
             $sqls = array();
             $propostas = json_decode($propostas);
             foreach($propostas as $proposta){
-                $proposta->renovacao  = FuncAux::data_converte_para_mysql( $proposta->renovacao );
-                $proposta->vencimento = FuncAux::data_converte_para_mysql( $proposta->vencimento );
+                $proposta->renovacao  = DatasFuncAux::data_converte_para_mysql( $proposta->renovacao );
+                $proposta->vencimento = DatasFuncAux::data_converte_para_mysql( $proposta->vencimento );
 
                 $s  = "";
                 $s  = "INSERT INTO propostas VALUES ( ";

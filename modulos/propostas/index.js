@@ -543,7 +543,7 @@ $(document).ready(function() {
                     termino: CtrMeses.retDataAtualParaMysql('ultima')
                 };
                 $(this).attr("target","_blanck");
-                $(this).attr("href","imprimir.php?proposta="+JSON.stringify(Proposta));
+                $(this).attr("href","view_imprimir.php?proposta="+JSON.stringify(Proposta));
             });
         },
         setButtonRemoverFiltros: function(){
