@@ -190,17 +190,6 @@ $(document).ready(function() {
             this.lis.eq(this.mes_atual-1).addClass('active');
             this.eAno_ant.children().text(this.ano_atual  - 1);
             this.eAno_prox.children().text(this.ano_atual + 1);
-        },
-        reiniciar: function(){
-            console.log("o reiniciar do CtrMeses está desligado (393)");
-//            var me = this,
-//                dia_inicio  = 1,
-//                dia_termino = this.daysInMonth(this.mes_atual, this.ano_atual);
-//
-//            this.removerAtual();
-//            this.lis.eq(this.mes_atual-1).addClass('active');
-//            this.eAno_ant.children().text(this.ano_atual  - 1);
-//            this.eAno_prox.children().text(this.ano_atual + 1);
         }
     };
     CtrMeses.init();
@@ -311,7 +300,8 @@ $(document).ready(function() {
             this.btnCancelar.click(function(){
                 me.esconderCtrSalvar();
                 me.mostrarCtrInserir();
-                CtrMeses.reiniciar();
+                me.popular(Proposta);
+                //console.log(Proposta);
             });
         },
         setButtonInserir: function(){
@@ -320,6 +310,7 @@ $(document).ready(function() {
                 $.post( "view_lista_linha.php", function( data ) {
                         me.tbody.append( data );
                         me.mascaras();
+                        me.data_para_nova_propostas();
                     }
                 );
                 me.mostrarCtrSalvar();
@@ -377,6 +368,14 @@ $(document).ready(function() {
             this.tbody.find('input[name="dt-renova"]').mask("99/99/9999");
             this.tbody.find('input[name="dt-venc"]').mask("99/99/9999");
         },
+        data_para_nova_propostas: function(){
+            var hoje               = new Date(),
+                quase_hoje         = hoje.getDate() + "/" + CtrMeses.mes_atual + "/" + CtrMeses.ano_atual,
+                quase_daqui_um_ano = hoje.getDate() + "/" + CtrMeses.mes_atual + "/" + (CtrMeses.ano_atual+1);
+            
+            this.tbody.find('input[name="dt-renova"]').val(quase_hoje);
+            this.tbody.find('input[name="dt-venc"]').val(quase_daqui_um_ano);
+        },        
         colorir_options: function(){
             this.elem.find("select[title='status']").each(function(){
                 $(this).find("option").eq(0).addClass("status_n_check");
