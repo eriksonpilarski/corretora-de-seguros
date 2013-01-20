@@ -1,1 +1,1 @@
-<?php header("Location: ./modulos/usuarios/index.php"); ?>
+<?php header("Location: modulos/usuarios/index.php"); ?>

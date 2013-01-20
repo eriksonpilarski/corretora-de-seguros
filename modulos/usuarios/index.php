@@ -1,8 +1,7 @@
 <?php
-
 require "../../class/App.php";
 
-if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."modulos/usuarios/")
+//if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."modulos/usuarios/")
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
