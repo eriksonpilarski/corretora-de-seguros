@@ -291,7 +291,11 @@ $(document).ready(function() {
                     propostas: JSON.stringify(propostas),
                     ac: (inserir) ? "in" : "up"
                 });
-                CtrMeses.reiniciar();
+                Proposta.renovacao = {
+                    inicio:  CtrMeses.retDataAtualParaMysql('primeira'),
+                    termino: CtrMeses.retDataAtualParaMysql('ultima')
+                };                
+                me.popular(Proposta);
             });
         },
         setButtonCancelar: function(){
@@ -301,7 +305,6 @@ $(document).ready(function() {
                 me.esconderCtrSalvar();
                 me.mostrarCtrInserir();
                 me.popular(Proposta);
-                //console.log(Proposta);
             });
         },
         setButtonInserir: function(){
