@@ -21,6 +21,7 @@ class Propostas {
 
         $sqls = array();
 
+        $propostas = stripslashes($propostas);
         $propostas = json_decode($propostas);
         foreach($propostas as $proposta){
             $proposta->renovacao  = DatasFuncAux::data_converte_para_mysql( $proposta->renovacao );
@@ -68,6 +69,7 @@ class Propostas {
 
         $sqls = array();
 
+        $propostas = stripslashes($propostas);
         $propostas = json_decode($propostas);
         foreach($propostas as $proposta){
             $proposta->renovacao  = DatasFuncAux::data_converte_para_mysql( $proposta->renovacao );
@@ -166,6 +168,7 @@ class Propostas {
             throw new Exception(get_class($this).": Como filtrar sem a 'proposta filtro'?");
         }
 
+        $proposta = stripslashes($proposta);
         $proposta = json_decode($proposta);
 
 
