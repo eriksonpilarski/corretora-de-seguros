@@ -736,15 +736,15 @@ $(document).ready(function() {
             });
         },
         idsSelecionados: function(){
-            var id = [];
+            var ids = [];
             CtrTabelaProposta.tbody.find('input:checked[type="checkbox"]').each(function(){
-                id.push( $(this)
+                ids.push( $(this)
                     .parent()
                     .parent()
                         .find("input[type='hidden']")
                         .val() )
             });
-            return id;
+            return ids;
         },
         mostrarFormulario: function(){
             var me = this;
