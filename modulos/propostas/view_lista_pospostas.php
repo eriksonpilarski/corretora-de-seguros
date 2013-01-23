@@ -81,7 +81,7 @@ try {
         </td>
         <td>
             <div class="input-append" style="width: 80px;">
-                <input class="span5" type="text" value="<?php echo $proposta->comissao ?>">
+                <input class="span5" type="text" value="<?php echo $proposta->comissao ?>" maxlength="2">
                 <span class="add-on">%</span>
             </div>
         </td>
