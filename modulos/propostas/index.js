@@ -92,7 +92,7 @@ $(document).ready(function() {
         eAno_prox: {},          // elemento <li> ano posterior
         lis: {},                // lista com elementos <li> sem os anos
         ano_atual: 0,           // ano atual
-        mes_atual: 0,           // mês atual
+        mes_atual: "",           // mês atual
         mes_dia_pri: 1,         // primeiro dia do mês
         mes_dia_ulti: 0,        // último dia do mês
 
@@ -106,7 +106,7 @@ $(document).ready(function() {
         },
         hoje: function(){
             var hoje = new Date();
-            this.mes_atual = hoje.getMonth()+1;
+            this.mes_atual = String(hoje.getMonth()+1);
             this.ano_atual = hoje.getFullYear();
             this.mes_dia_ulti = this.daysInMonth(this.mes_atual, this.ano_atual);
         },
@@ -260,7 +260,7 @@ $(document).ready(function() {
                 propostas = [],  // array com as propostas
                 propTemp = {},   // posposta clonada, temporária
                 linha_dados,     // cada linha da tabela
-                linha_dados_str; // string de busca das 
+                linha_dados_str; // string de busca das
 
             this.btnSalvar.unbind('click');
             this.btnSalvar.click(function(){
@@ -310,8 +310,7 @@ $(document).ready(function() {
             this.btnInserir.click(function(){
                 $.post( "view_lista_linha.php", function( data ) {
                         me.tbody.append( data );
-                        me.mascaras_insert();
-                        me.data_para_nova_propostas();
+                        me.data_para_nova_proposta();
                     }
                 );
                 me.mostrarCtrSalvar();
@@ -369,18 +368,20 @@ $(document).ready(function() {
             this.tbody.find('input[name="dt-renova"]').mask("99/99/9999");
             this.tbody.find('input[name="dt-venc"]').mask("99/99/9999");
         },
-        mascaras_insert: function(){
-            this.tbody.find('tr[title="novo"]').find('input[name="dt-renova"]').mask("99/99/9999");
-            this.tbody.find('tr[title="novo"]').find('input[name="dt-venc"]').mask("99/99/9999");
-        },        
-        data_para_nova_propostas: function(){
+        data_para_nova_proposta: function(){
             var hoje               = new Date(),
-                quase_hoje         = hoje.getDate() + "/" + CtrMeses.mes_atual + "/" + CtrMeses.ano_atual,
-                quase_daqui_um_ano = hoje.getDate() + "/" + CtrMeses.mes_atual + "/" + (CtrMeses.ano_atual+1);
-            
-            this.tbody.find('tr[title="novo"]').find('input[name="dt-renova"]').val(quase_hoje);
-            this.tbody.find('tr[title="novo"]').find('input[name="dt-venc"]').val(quase_daqui_um_ano);
-        },        
+                quase_hoje         = "",
+                quase_daqui_um_ano = "",
+                mes_dois_digitos   = "";
+
+            mes_dois_digitos = (CtrMeses.mes_atual < 10) ? "0"+CtrMeses.mes_atual: CtrMeses.mes_atual;
+
+            quase_hoje = hoje.getDate().toString() + "/" + mes_dois_digitos   + "/" + CtrMeses.ano_atual;
+            quase_daqui_um_ano = hoje.getDate() + "/" + mes_dois_digitos + "/" + (CtrMeses.ano_atual+1);
+
+            this.tbody.find('tr[title="novo"]').find('input[name="dt-renova"]').mask("99/99/9999").val(quase_hoje);
+            this.tbody.find('tr[title="novo"]').find('input[name="dt-venc"]').mask("99/99/9999").val(quase_daqui_um_ano);
+        },
         colorir_options: function(){
             this.elem.find("select[title='status']").each(function(){
                 $(this).find("option").eq(0).addClass("status_n_check");
@@ -671,8 +672,8 @@ $(document).ready(function() {
                         termino: CtrMeses.retDataAtualParaMysql('ultima')
                     };
                 }
-                
-                
+
+
                 Proposta.prem_liq   = $("#prem-liq").val();
                 Proposta.comissao   = $("#comissao").val();
                 //status
