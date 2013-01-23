@@ -80,8 +80,8 @@ try {
             <input type="text" name="prem_liq" value="<?php echo $proposta->prem_liq ?>" class="input-small " />
         </td>
         <td>
-            <div class="input-append">
-                <input class="span3" type="text" value="<?php echo $proposta->comissao ?>">
+            <div class="input-append" style="width: 80px;">
+                <input class="span5" type="text" value="<?php echo $proposta->comissao ?>">
                 <span class="add-on">%</span>
             </div>
         </td>

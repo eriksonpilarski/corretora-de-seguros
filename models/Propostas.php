@@ -38,7 +38,7 @@ class Propostas {
                     "'{$proposta->detalhes}', ".
                     "'{$proposta->apolice}', ".
                     "'{$proposta->vencimento}', ".
-                    "'{$proposta->prem_liq}', ".
+                    $this->convMoedaToMysql($proposta->prem_liq).", ".
                     "'{$proposta->comissao}', ".
                     "'{$proposta->status}' )";
             $sqls[] = $s;
@@ -86,7 +86,7 @@ class Propostas {
                     "tipo = '{$proposta->tipo}', ".
                     "apolice = '{$proposta->apolice}', ".
                     "vencimento = '{$proposta->vencimento}', ".
-                    "prem_liq = '{$proposta->prem_liq}', ".
+                    "prem_liq = ".$this->convMoedaToMysql($proposta->prem_liq).", ".
                     "comissao = '{$proposta->comissao}', ".
                     "status = '{$proposta->status}'";
             $s .= "WHERE id = {$proposta->id}";
@@ -232,11 +232,28 @@ class Propostas {
         if( ! $ids){
             throw new Exception(get_class($this).": Como filtrar sem os ids?");
         }
-        
+
         $ids = stripslashes($ids);
         $ids = implode(", ", json_decode($ids) );
         return " WHERE id IN($ids)";
 
+    }
+
+
+    /**
+     * Converte moeda para o formato do mysql
+     *
+     * entrada 12.000,00
+     * saída   12000.00
+     *
+     * @param type $moeda
+     * @return type
+     */
+    function convMoedaToMysql($moeda){
+        $moeda = str_replace(".", "", $moeda); # tira os pontos
+        $moeda = str_replace(",", ".", $moeda); # troca a única vírgua(decimal) por ponto
+
+        return $moeda;
     }
 
 
