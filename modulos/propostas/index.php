@@ -238,6 +238,7 @@ if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."m
         <script type="text/javascript" src="<?php echo App::getAppPath(); ?>js/jquery1.8.3.min.js"></script>
         <script type="text/javascript" src="<?php echo App::getAppPath(); ?>js/bootstrap.min.js"></script>
         <script type="text/javascript" src="<?php echo App::getAppPath(); ?>js/jquery.maskedinput-1.3.min.js"></script>
+        <script type="text/javascript" src="<?php echo App::getAppPath(); ?>js/jquery.priceFormat1.7.min.js"></script>
         <script type="text/javascript" src="index.js"></script>
     </body>
 </html>

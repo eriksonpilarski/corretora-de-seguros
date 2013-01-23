@@ -367,7 +367,12 @@ $(document).ready(function() {
         mascaras: function(){
             this.tbody.find('input[name="dt-renova"]').mask("99/99/9999");
             this.tbody.find('input[name="dt-venc"]').mask("99/99/9999");
-        },
+            this.tbody.find('input[name="prem_liq"]').priceFormat({
+                prefix: '',
+                centsSeparator: ',',
+                thousandsSeparator: '.'
+            });
+                    },
         data_para_nova_proposta: function(){
             var hoje               = new Date(),
                 quase_hoje         = "",

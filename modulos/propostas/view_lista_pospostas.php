@@ -67,20 +67,23 @@ try {
             </select>
         </td>
         <td>
-            <input type="text" value="<?php echo $proposta->detalhes ?>"/>
+            <input type="text" value="<?php echo $proposta->detalhes ?>" />
         </td>
         <td>
             <input type="text" value="<?php echo $proposta->apolice ?>" class="input-small" />
         </td>
         <td>
-            <input type="text"  class="input-small" name="dt-renova"
+            <input type="text" class="input-small" name="dt-renova"
                    value="<?php echo DatasFuncAux::data_converte_para_visualizar($proposta->vencimento) ?>" />
         </td>
         <td>
-            <input type="text" value="<?php echo $proposta->prem_liq ?>" class="input-small "/>
+            <input type="text" name="prem_liq" value="<?php echo $proposta->prem_liq ?>" class="input-small " />
         </td>
         <td>
-            <input type="text" value="<?php echo $proposta->comissao ?>" class="input-mini "/>
+            <div class="input-append">
+                <input class="span3" type="text" value="<?php echo $proposta->comissao ?>">
+                <span class="add-on">%</span>
+            </div>
         </td>
         <td>
             <select class="input-small" title="status">
