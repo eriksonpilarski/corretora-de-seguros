@@ -109,7 +109,7 @@ INSERT INTO `table 5` (`COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6`, `CO
 ('2012-10-30', '476', 'Edson Jorge de Oliveira N', 'mapfre', 'Fiesta Sed. 1.6 08/09 EGD1155', '', '2013-10-30', ' 889.80 ', '15', 'ok'),
 ('2012-10-29', '477', 'Cleide Gomes Figueira', 'porto', 'City Sed LX at 1.5 16v 09/10 EMG1238', '2232649', '2013-10-29', ' 1338.00 ', '10', 'ok'),
 ('2012-11-01', '478', 'Adriano Y.Oeichi', 'azul', '307 H Presence 1.6 16v 2008 DZF8627', '514239', '2013-11-01', ' 1785.00 ', '15', 'ok'),
-('2012-11-05', '479', 'Divanita Regina Salco', 'porto', 'C3 Pic Exc 1.6 16v aut. 2012 FBB7202', '', '2013-11-05', ' 1083.29 ', '16', 'ok                                                             '),
+('2012-11-05', '479', 'Divanita Regina Salco', 'porto', 'C3 Pic Exc 1.6 16v aut. 2012 FBB7202', '', '2013-11-05', ' 1083.29 ', '16', 'ok'),
 ('2012-11-05', '480', 'Eneida M. Lipai', 'porto', '206 h. Pres 1.48v 2006 JHE1835', '2231197', '2013-11-05', ' 829.40 ', '20', 'ok'),
 ('2012-11-07', '481', 'Mariangela G.Savoia ', 'allianz', 'Prisma Maxx 1.4 8v', '', '2013-11-07', ' 829.68 ', '15', 'ok'),
 ('2012-11-01', '482', 'Luiz S. Nakgawa LOI', 'maritima', 'R. Antonio Olinto,211', '', '2013-11-01', ' 60.00 ', '60', ''),
