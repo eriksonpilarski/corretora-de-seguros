@@ -300,7 +300,7 @@ class Propostas {
             "mafre"      => "Mafre",
             "porto"      => "Porto",
             "sulamerica" => "Sulamérica",
-            "toqui"      => "Tóquio"
+            "tokio"      => "Tóko"
         );
     }
 
