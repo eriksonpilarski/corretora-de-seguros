@@ -50,7 +50,7 @@ class DatasFuncAux {
      * @return type
      */
     static function data_converte_para_visualizar( $data ){
-        return self::dataConversor("Y-m-j", "j/m/Y", $data);
+        return self::dataConversor("Y-m-j", "d/m/Y", $data);
     }
 
     /**
