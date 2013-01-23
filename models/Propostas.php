@@ -297,10 +297,11 @@ class Propostas {
             "hdi"        => "HDI",
             "itau"       => "Itaú",
             "maritima"   => "Marítima",
-            "mafre"      => "Mafre",
+            "mapfre"     => "Mapfre",
             "porto"      => "Porto",
             "sulamerica" => "Sulamérica",
-            "tokio"      => "Tóko"
+            "tokio"      => "Tóko",
+            "zurich"     => "Zurich"
         );
     }
 
