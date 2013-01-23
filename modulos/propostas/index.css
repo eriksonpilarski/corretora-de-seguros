@@ -23,6 +23,9 @@ input[type='text'], select {
     margin-bottom: 0px;
     text-align: center;
 }
+div#filtro input[type='text'], div#filtro select {
+    font-size: 14px;
+}
 input[type='text'] {
     height: 14px;
     line-height: 14px;
