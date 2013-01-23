@@ -260,7 +260,7 @@ $(document).ready(function() {
                 propostas = [],  // array com as propostas
                 propTemp = {},   // posposta clonada, temporária
                 linha_dados,     // cada linha da tabela
-                linha_dados_str; // string de busca das linhas
+                linha_dados_str; // string de busca das 
 
             this.btnSalvar.unbind('click');
             this.btnSalvar.click(function(){
@@ -270,8 +270,6 @@ $(document).ready(function() {
                 linha_dados_str = (inserir) ? "tr[title='novo']" : "tr" ;
                 me.tbody.find(linha_dados_str).each(function(){
                     linha_dados = $(this).find("input, select").not('input:checkbox');
-
-                    Proposta.reiniciarObjeto();
                     propTemp = jQuery.extend({}, Proposta);
                     propTemp.id         = linha_dados.eq(0).val();
                     propTemp.renovacao  = linha_dados.eq(1).val();
@@ -294,7 +292,7 @@ $(document).ready(function() {
                 Proposta.renovacao = {
                     inicio:  CtrMeses.retDataAtualParaMysql('primeira'),
                     termino: CtrMeses.retDataAtualParaMysql('ultima')
-                };                
+                };
                 me.popular(Proposta);
             });
         },
@@ -312,12 +310,12 @@ $(document).ready(function() {
             this.btnInserir.click(function(){
                 $.post( "view_lista_linha.php", function( data ) {
                         me.tbody.append( data );
-                        me.mascaras();
+                        me.mascaras_insert();
                         me.data_para_nova_propostas();
                     }
                 );
                 me.mostrarCtrSalvar();
-                me.setButtonSalvar('inserir');
+                me.setButtonSalvar('inserir', Proposta);
             });
         },
         setButtonsDeletar: function(){
@@ -371,13 +369,17 @@ $(document).ready(function() {
             this.tbody.find('input[name="dt-renova"]').mask("99/99/9999");
             this.tbody.find('input[name="dt-venc"]').mask("99/99/9999");
         },
+        mascaras_insert: function(){
+            this.tbody.find('tr[title="novo"]').find('input[name="dt-renova"]').mask("99/99/9999");
+            this.tbody.find('tr[title="novo"]').find('input[name="dt-venc"]').mask("99/99/9999");
+        },        
         data_para_nova_propostas: function(){
             var hoje               = new Date(),
                 quase_hoje         = hoje.getDate() + "/" + CtrMeses.mes_atual + "/" + CtrMeses.ano_atual,
                 quase_daqui_um_ano = hoje.getDate() + "/" + CtrMeses.mes_atual + "/" + (CtrMeses.ano_atual+1);
             
-            this.tbody.find('input[name="dt-renova"]').val(quase_hoje);
-            this.tbody.find('input[name="dt-venc"]').val(quase_daqui_um_ano);
+            this.tbody.find('tr[title="novo"]').find('input[name="dt-renova"]').val(quase_hoje);
+            this.tbody.find('tr[title="novo"]').find('input[name="dt-venc"]').val(quase_daqui_um_ano);
         },        
         colorir_options: function(){
             this.elem.find("select[title='status']").each(function(){
@@ -567,6 +569,7 @@ $(document).ready(function() {
                     CtrTabelaProposta.tbody.show();
                     CtrTabelaProposta.popular(Proposta);
                 }
+                CtrTabelaProposta.esconderCtrSalvar()
             });
         },
         setButtonRenovar: function(){
@@ -662,6 +665,14 @@ $(document).ready(function() {
                     inicio:  $("#venc_inicio").val(),
                     termino: $("#venc_termino").val()
                 };
+                if( ! Proposta.vencimento.inicio || ! Proposta.vencimento.termino ){
+                    Proposta.renovacao = {
+                        inicio:  CtrMeses.retDataAtualParaMysql('primeira'),
+                        termino: CtrMeses.retDataAtualParaMysql('ultima')
+                    };
+                }
+                
+                
                 Proposta.prem_liq   = $("#prem-liq").val();
                 Proposta.comissao   = $("#comissao").val();
                 //status
@@ -699,8 +710,6 @@ $(document).ready(function() {
 
                 me.tbody.find("tr").each(function(){
                     linha_dados = $(this).find("input, select").not('input:checkbox');
-
-                    Proposta.reiniciarObjeto();
                     propTemp = jQuery.extend({}, Proposta);
                     propTemp.id         = linha_dados.eq(0).val();
                     propTemp.renovacao  = linha_dados.eq(1).val();

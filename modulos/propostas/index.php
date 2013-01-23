@@ -65,9 +65,9 @@ if( ! isset($_SESSION['id-usuario'])  ) header("Location: ".App::getAppPath()."m
                         </ul>
 
                         <div class="status pull-left">
-                            <button type="button" class="btn btn-warning btn-mini" data-toggle="button" id="btn-status-n-checado">Não checado (<span>10</span>)</button>
-                            <button type="button" class="btn btn-danger btn-mini" data-toggle="button" id="btn-status-falta-ass">Falta assinatura (<span>3</span>)</button>
-                            <button type="button" class="btn btn-info btn-mini" data-toggle="button" id="btn-status-ok">OK (<span>12</span>)</button>
+                            <button type="button" class="btn btn-warning btn-mini" data-toggle="button" id="btn-status-n-checado">Não checado <span></span></button>
+                            <button type="button" class="btn btn-danger btn-mini" data-toggle="button" id="btn-status-falta-ass">Falta assinatura <span></span></button>
+                            <button type="button" class="btn btn-info btn-mini" data-toggle="button" id="btn-status-ok">OK <span></span></button>
                         </div>
                         <div class="clearfix"></div>
 
