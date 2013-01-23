@@ -137,6 +137,7 @@ class Propostas {
 
         $pdo = DB::conectar();
         $sql = "SELECT * FROM propostas $criterio";
+        //var_dump($sql);
 
         $result = $pdo->query($sql);
 
@@ -231,7 +232,8 @@ class Propostas {
         if( ! $ids){
             throw new Exception(get_class($this).": Como filtrar sem os ids?");
         }
-
+        
+        $ids = stripslashes($ids);
         $ids = implode(", ", json_decode($ids) );
         return " WHERE id IN($ids)";
 
