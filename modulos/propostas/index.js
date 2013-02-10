@@ -47,26 +47,6 @@ $(document).ready(function() {
     };
     Proposta.reiniciarObjeto();
 
-
-    var ajax = {
-//        crudTabPropostas: function(dados){
-//            $.post( "index_action.php", dados, function( data ) {
-//                $('body').append( data );
-//            });
-//        },
-        readTabPropostas: function(dados, callback){
-            $.post( "view_lista_pospostas.php", dados, function( data ) {
-                $('tbody', '#tabPropostas').empty().append( data );
-                    callback();
-            });
-        },
-        readTabRenovacao: function(dados){
-            $.post( "view_lista_renovacoes.php", dados, function( data ) {
-                $('tbody', '#tabRenovacao').empty().append( data );
-            });
-        }
-    };
-
     var TelaLista = {
         elem: $("#lista"),
         eAlerta: $("#lista-alerta"),
@@ -79,24 +59,44 @@ $(document).ready(function() {
             this.eAlerta.empty();
         }
     };
-    
+
     var TelaInserir = {
         elem: $("#inserir"),
         mostrarFormulario: function(){
             var me = this;
             $.post( "view_form_inserir.php", function( data ) {
                     me.elem.empty().append( data );
-//                    me.data_para_nova_proposta();
+                    me.CtrInserir.init();
                 }
             );
             TelaLista.elem.slideUp("slow");
             this.elem.slideDown("slow");
-            CtrInserir.init();
         },
         esconderFormulario: function(){
             this.elem.slideUp("slow");
-            TelaLista.elem.slideDown("slow");          
-            
+            TelaLista.elem.slideDown("slow");
+        },
+        CtrInserir: {
+            elem: {},
+            btnInserir: {},
+            btnCancelar: {},
+            init: function(){
+                this.elem        = $('#form-inserir'),
+                this.btnInserir  = this.elem.find('#btn-inserir'),
+                this.btnCancelar = this.elem.find('#btn-inserir-cancelar');
+                this.setButtonInserir();
+                this.setButtonCancelar();
+            },
+            setButtonInserir: function(){
+                this.btnInserir.click(function(){
+                    console.log("inserir");
+                })
+            },
+            setButtonCancelar: function(){
+                this.btnCancelar.click(function(){
+                    TelaInserir.esconderFormulario();
+                })
+            }
         }
     }
 
@@ -113,20 +113,29 @@ $(document).ready(function() {
 
         init: function(){
             this.setButtonInserir();
-//            this.setButtonFiltros();
+            this.setButtonRenovar()
+            this.setButtonFiltros();
 //            this.setButtonImprimir();
 //            this.setButtonRemoverFiltros();
-//            this.setButtonRenovar()
         },
         setButtonInserir: function(){
             this.btnInserir.click(function(){
                 TelaInserir.mostrarFormulario();
             });
         },
+        setButtonRenovar: function(){
+            this.btnRenovar.click(function(){
+//                if(  CtrTabelaProposta.alguma_proposta_selecionada()  ){
+                    TelaRenovacao.mostrarFormulario();
+//                } else {
+//                    alert("Selecione alguma proposta para poder renovar!!!");
+//                }
+            });
+        },
         setButtonFiltros: function(){
-//            this.btnFiltros.click(function(){
-//                TelaFiltro.mostrarFormulario();
-//            });
+            this.btnFiltros.click(function(){
+                TelaFiltros.mostrarFormulario();
+            });
         },
         setButtonImprimir: function(){
 //            this.btnImprimir.click(function(){
@@ -152,15 +161,6 @@ $(document).ready(function() {
 //                    CtrTabelaProposta.popular(Proposta);
 //                }
 //                CtrTabelaProposta.esconderCtrSalvar()
-//            });
-        },
-        setButtonRenovar: function(){
-//            this.btnRenovar.click(function(){
-//                if(  CtrTabelaProposta.alguma_proposta_selecionada()  ){
-//                    TelaRenovacao.mostrarFormulario();
-//                } else {
-//                    alert("Selecione alguma proposta para poder renovar!!!");
-//                }
 //            });
         }
     };
@@ -263,12 +263,12 @@ $(document).ready(function() {
     ctrMeses.init();
 
     var CtrTabelaProposta = {
-        elem: $("#tabPropostas"),
+        elem: $("#tab-propostas"),
         thead: {},
         tbody: {},
         init: function(){
 //            this.thead             = this.elem.find("thead");
-//            this.tbody             = this.elem.find("tbody");
+            this.tbody             = this.elem.find("tbody");
 //
 //            this.setEventos();
 //            Proposta.renovacao = {
@@ -408,32 +408,97 @@ $(document).ready(function() {
 //                me.setButtonsDeletar();
 //                me.setCheckTodos();
             };
-            ajax.readTabPropostas(_dados, callback);
+            $.post( "view_lista_pospostas.php", _dados, function( data ) {
+                me.tbody.empty().append( data );
+                    callback();
+            });
         }
     }
     CtrTabelaProposta.init();
 
 
-    var CtrInserir = {
-        elem: {},
-        btnInserir: {},
-        btnVoltar: {},
+    var TelaRenovacao = {
+        elem: $('#renovacao'),
         init: function(){
-            this.elem       = $('#form-inserir'),
-            this.btnInserir = this.elem.find('#btn-inserir'),
-            this.btnVoltar  = this.elem.find('#btn-inserir-voltar');
-            console.log(this.elem);
         },
-        setButttonInserir: function(){
-            
+        mostrarFormulario: function(){
+            var me = this;
+            $.post( "view_form_renovacoes.php", function( data ) {
+                    me.elem.empty().append( data );
+                    me.CtrRenovar.init();                    
+                }
+            );
+            TelaLista.elem.slideUp("slow");
+            this.elem.slideDown("slow");
         },
-        setButtonVoltar: function(){
-            this.btnVoltar.click(function(){
-                TelaInserir.esconderFormulario();
-            })
+        esconderFormulario: function(){
+            this.elem.slideUp("slow");
+            TelaLista.elem.slideDown("slow");
+        },
+        CtrRenovar: {
+            elem: {},
+            btnInserir: {},
+            btnCancelar: {},
+            init: function(){
+                this.elem        = TelaRenovacao.elem,
+                this.btnRenovar  = this.elem.find('#btn-renovar'),
+                this.btnCancelar = this.elem.find('#btn-renovar-cancelar');
+                this.setButtonRenovar();
+                this.setButtonCancelar();
+            },
+            setButtonRenovar: function(){
+                this.btnRenovar.click(function(){
+                    console.log("renovar");
+                })
+            },
+            setButtonCancelar: function(){
+                this.btnCancelar.click(function(){
+                    TelaRenovacao.esconderFormulario();
+                })
+            }
+        }
+    };
+    TelaRenovacao.init();
+
+    var TelaFiltros = {
+        elem: $("#filtros"),
+        mostrarFormulario: function(){
+            var me = this;
+            $.post( "view_form_filtros.php", function( data ) {
+                    me.elem.empty().append( data );
+                    me.CtrFiltrar.init();
+                }
+            );
+            TelaLista.elem.slideUp("slow");
+            this.elem.slideDown("slow");
+        },
+        esconderFormulario: function(){
+            this.elem.slideUp("slow");
+            TelaLista.elem.slideDown("slow");
+        },
+        CtrFiltrar: {
+            elem: {},
+            btnFiltrar: {},
+            btnVoltar: {},
+            init: function(){
+                this.elem        = $('#form-filtros'),
+                this.btnAplicar  = this.elem.find('#btn-filtros-aplicar'),
+                this.btnCancelar = this.elem.find('#btn-filtros-cancelar');
+                this.setButtonAplicar();
+                this.setButtonCancelar();
+            },
+            setButtonAplicar: function(){
+                this.btnAplicar.click(function(){
+                    console.log("aplicar");
+                })
+            },
+            setButtonCancelar: function(){
+                this.btnCancelar.click(function(){
+                    TelaFiltros.esconderFormulario();
+                })
+            }
         }
     }
-
 
 
 

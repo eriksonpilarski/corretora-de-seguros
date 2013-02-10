@@ -86,7 +86,7 @@ if (!isset($_SESSION['id-usuario']))
 
                         <div id="lista-alerta"></div>
 
-                        <table id="tabPropostas" class="table" >
+                        <table id="tab-propostas" class="table" >
                             <thead>
                                 <tr class="cabecalho">
                                     <th><input type="checkbox" class="input-mini "/></th>

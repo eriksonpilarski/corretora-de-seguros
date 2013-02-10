@@ -1,4 +1,4 @@
-<form action="#" method="post" id="form-filtro">
+<form action="#" method="post" id="form-filtros">
     <div class="row-fluid">
         <div class="span8">
             <legend>Formulário de filtro</legend>
@@ -69,8 +69,8 @@
 
     <div class="row-fluid">
         <div class="span8" style="margin-top: 11px; text-align: center">
-            <button id="btn-canc-filtros" class="btn btn-inverse btn-small" type="button">Cancelar</button>
-            <button id="btn-apli-filtros" class="btn btn-success btn-small" type="button">Aplicar filtro</button>
+            <button id="btn-filtros-cancelar" class="btn btn-inverse btn-small" type="button">Cancelar</button>
+            <button id="btn-filtros-aplicar" class="btn btn-success btn-small" type="button">Aplicar filtro</button>
         </div>
     </div>
 </form>

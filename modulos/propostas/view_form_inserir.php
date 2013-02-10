@@ -1,3 +1,14 @@
+<?php
+/**
+ *
+ */
+
+/**
+ *
+ */
+require "../../php/class/App.php";
+?>
+
 <form action="#" method="post" id="form-inserir">
     <div class="row-fluid">
         <div class="span8">
@@ -34,9 +45,8 @@
             <select class="span12" name="cia" id="cia">
                 <option></option>
                 <?php
-//                    $combo = new HTMLcombo();
-//                    $combo->valor_selecionado = $proposta->cia;
-//                    echo $combo->getOptions(Propostas::retComboCia());
+                    $combo = new HTMLcombo();
+                    echo $combo->getOptions(Propostas::retComboCia());
                 ?>
             </select>
         </div>
@@ -45,9 +55,8 @@
             <select class="span12" name="tipo" id="tipo">
                 <option></option>
                 <?php
-//                    $combo = new HTMLcombo();
-//                    $combo->valor_selecionado = $proposta->tipo;
-//                    echo $combo->getOptions(Propostas::retComboTipo());
+                    $combo = new HTMLcombo();
+                    echo $combo->getOptions(Propostas::retComboTipo());
                 ?>
             </select>
         </div>
@@ -69,7 +78,7 @@
 
     <div class="row-fluid">
         <div class="span8" style="margin-top: 11px; text-align: center">
-            <button id="btn-inserir-voltar" class="btn btn-inverse btn-small" type="button">Voltar</button>
+            <button id="btn-inserir-cancelar" class="btn btn-inverse btn-small" type="button">Cancelar</button>
             <button id="btn-inserir" class="btn btn-success btn-small" type="button">Inserir</button>
         </div>
     </div>
