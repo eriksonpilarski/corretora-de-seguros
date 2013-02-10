@@ -174,10 +174,8 @@ $(document).ready(function() {
         dt: {},
 
         init: function(){
-//            this.aMeses     = this.elem.children(".nav").find("a");
             this.lisMeses   = this.elem.children(".nav").find("li");
             this.aAnos      = this.elem.find(".dropdown-menu").find("a");
-//            this.lisAnos    = this.elem.children(".btn-group").find("li");
             this.dt = {
                 ano: 0,
                 mes: "",
@@ -189,7 +187,6 @@ $(document).ready(function() {
             this.hoje();
             this.selecionar_mes();
             this.setLabelBtnPrincipal(this.dt.ano);
-
         },
         hoje: function(){
             var hoje = new Date();
@@ -208,9 +205,7 @@ $(document).ready(function() {
                 inicio:  this.dt.pri_dia_mes + "/" + this.dt.mes + "/" + this.dt.ano,
                 termino: this.dt.ulti_dia_mes + "/" + this.dt.mes + "/" + this.dt.ano
             };
-
             return data_atual;
-
         },
         remover_meses: function(){
             this.lisMeses.each(function(){
@@ -244,20 +239,17 @@ $(document).ready(function() {
                     li.addClass('active');
                     me.dt.mes = a.attr('href');
                     me.dt.ulti_dia_mes = me.daysInMonth(me.dt.mes, me.dt.ano);
-
                     Proposta.vig_inicio = {
                         dt1: me.retDataAtual().inicio,
                         dt2: me.retDataAtual().termino
                     };
                     CtrTabelaProposta.popular(Proposta);
-
                 });
             });
         },
         setLabelBtnPrincipal: function(label) {
             this.btnPrincipal.text(label);
             this.btnPrincipal.append(" <span class=\"caret\"></span>");
-
         }
     }
     ctrMeses.init();
