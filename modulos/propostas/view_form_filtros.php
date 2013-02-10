@@ -1,3 +1,14 @@
+<?php
+/**
+ *
+ */
+
+/**
+ *
+ */
+require "../../php/class/App.php";
+
+?>
 <form action="#" method="post" id="form-filtros">
     <div class="row-fluid">
         <div class="span8">
@@ -34,9 +45,9 @@
             <select class="span12" name="cia" id="cia">
                 <option></option>
                 <?php
-//                $combo = new HTMLcombo();
-//                $combo->valor_selecionado = $proposta->cia;
-//                echo $combo->getOptions(Propostas::retComboCia());
+                $combo = new HTMLcombo();
+                $combo->valor_selecionado = $proposta->cia;
+                echo $combo->getOptions(Propostas::retComboCia());
                 ?>
             </select>
         </div>
@@ -45,9 +56,9 @@
             <select class="span12" name="tipo" id="tipo">
                 <option></option>
                 <?php
-//                $combo = new HTMLcombo();
-//                $combo->valor_selecionado = $proposta->tipo;
-//                echo $combo->getOptions(Propostas::retComboTipo());
+                $combo = new HTMLcombo();
+                $combo->valor_selecionado = $proposta->tipo;
+                echo $combo->getOptions(Propostas::retComboTipo());
                 ?>
             </select>
         </div>
