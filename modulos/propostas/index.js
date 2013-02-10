@@ -53,6 +53,8 @@ $(document).ready(function() {
         init: function(){
             this.ctrMenuAction.init();
             this.ctrMeses.init();
+            this.ctrTabelaProposta.init();
+            
         },
         mostrarAlerta: function(){
             this.eAlerta.empty().append('<div class="alert alert-success">'+
@@ -87,11 +89,11 @@ $(document).ready(function() {
             },
             setButtonRenovar: function(){
                 this.btnRenovar.click(function(){
-    //                if(  ctrTabelaProposta.alguma_proposta_selecionada()  ){
+                    if(  TelaLista.ctrTabelaProposta.alguma_proposta_selecionada()  ){
                         TelaRenovacao.mostrarFormulario();
-    //                } else {
-    //                    alert("Selecione alguma proposta para poder renovar!!!");
-    //                }
+                    } else {
+                        alert("Selecione alguma proposta para poder renovar!!!");
+                    }
                 });
             },
             setButtonFiltros: function(){
@@ -281,14 +283,12 @@ $(document).ready(function() {
     //            });
             },
             alguma_proposta_selecionada: function(){
-    //            var flag = false
-    //
-    //            this.tbody.find("input:checkbox").each(function(){
-    //                if(  $(this).is(":checked") )
-    //                    flag = true;
-    //            });
-    //
-    //            return flag;
+                var flag = false
+                this.tbody.find("input:checkbox").each(function(){
+                    if(  $(this).is(":checked") )
+                        flag = true;
+                });
+                return flag;
             },
             mascaras: function(){
     //            this.tbody.find('input[name="dt-renova"]').mask("99/99/9999");
