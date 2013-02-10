@@ -28,8 +28,8 @@ if (!isset($_SESSION['id-usuario']))
             <div id="lista">
                 <div class="row-fluid">
                     <div class="span12">
-                        
-                        <div id="ctr-action" class="btn-group pull-left">
+
+                        <div id="ctr-action" class="btn-group pull-left respiro">
                             <a class="btn dropdown-toggle btn-inverse" data-toggle="dropdown" href="#">
                                 Action
                                 <span class="caret"></span>
@@ -49,9 +49,9 @@ if (!isset($_SESSION['id-usuario']))
                                 <li><a tabindex="-1" href="../usuarios/" id="btn-action-sair">Sair</a></li>
                             </ul>
                         </div>
-                        
+
                         <div id="ctr-meses">
-                            <div class="btn-group pull-left">
+                            <div class="btn-group pull-left respiro">
                                 <a id="btn-meses-principal" class="btn dropdown-toggle btn-inverse" data-toggle="dropdown"
                                     href="#"></a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
@@ -74,13 +74,18 @@ if (!isset($_SESSION['id-usuario']))
                                 <li><a href="10">out</a></li>
                                 <li><a href="11">nov</a></li>
                                 <li><a href="12">dez</a></li>
-                            </ul>                            
+                            </ul>
                         </div>
 
-                        <div id="ctr-status" class="status pull-left">
-                            <button type="button" class="btn btn-warning btn-mini" data-toggle="button" >Não checado </button>
+<!--                        <div  class="status pull-left">
+                            <button type="button" class="btn btn-success btn-mini" data-toggle="button" >Não checado </button>
                             <button type="button" class="btn btn-danger btn-mini" data-toggle="button" >Falta assinatura </button>
                             <button type="button" class="btn btn-info btn-mini" data-toggle="button" >OK </button>
+                        </div>-->
+                        <div id="ctr-status" class="btn-group status pull-left" data-toggle="buttons-radio">
+                            <button type="button" class="btn btn-success">Não checado</button>
+                            <button type="button" class="btn btn-danger">Falta assinatura </button>
+                            <button type="button" class="btn btn-info">OK</button>
                         </div>
                         <div class="clearfix"></div>
 

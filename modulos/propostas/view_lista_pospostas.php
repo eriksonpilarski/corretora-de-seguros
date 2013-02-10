@@ -50,7 +50,7 @@ try {
                    value="<?php echo DatasFuncAux::data_converte_para_visualizar($proposta->vig_inicio) ?>" />
         </td>
         <td>
-            <input type="text" class="input-small" name="dt-renova"
+            <input type="text" class="input-mini" name="dt-renova"
                    value="<?php echo DatasFuncAux::data_converte_para_visualizar($proposta->vig_termino) ?>" />
         </td>
         <td>
