@@ -5,47 +5,25 @@ $(document).ready(function() {
         STATUS_FALTA_ASS: "falta_ass",
         STATUS_OK: "ok",
 
-        reiniciarObjeto: function(){
-            this.id         = "";
-            this.proposta   = "";
-            this.segurado   = "";
-            this.vig_inicio = {
-                dt1: "",
-                dt2: ""
-            };
-            this.vig_termino = {
-                dt1: "",
-                dt2: ""
-            };
-            this.detalhes   = "";
-            this.cia        = "";
-            this.tipo       = "";
-            this.apolice    = "";
-            this.prem_liq   = "";
-            this.comissao   = "";
-            this.status     = "";
+        id         : "",
+        proposta   : "",
+        segurado   : "",
+        vig_inicio : {
+            dt1: "",
+            dt2: ""
         },
-
-        filtrado: function(){
-            var flag = false;
-
-            //id
-            //renovação
-            if(this.proposta != "")   {flag = true}
-            if(this.segurado != "")   {flag = true}
-            if(this.vig_inicio != "" && this.vig_termino != ""){flag = true;}
-            if(this.detalhes != "")   {flag = true}
-            if(this.cia != "")        {flag = true}
-            if(this.tipo != "")       {flag = true}
-            if(this.apolice != "")    {flag = true}
-            if(this.prem_liq != "")   {flag = true}
-            if(this.comissao != "")   {flag = true}
-            if(this.status != "")     {flag = true}
-
-            return flag;
-        }
+        vig_termino : {
+            dt1: "",
+            dt2: ""
+        },
+        detalhes   : "",
+        cia        : "",
+        tipo       : "",
+        apolice    : "",
+        prem_liq   : "",
+        comissao   : "",
+        status     : ""
     };
-    Proposta.reiniciarObjeto();
 
     var TelaLista = {
         elem: $("#lista"),
@@ -54,7 +32,6 @@ $(document).ready(function() {
             this.ctrMenuAction.init();
             this.ctrMeses.init();
             this.ctrTabelaProposta.init();
-            
         },
         mostrarAlerta: function(){
             this.eAlerta.empty().append('<div class="alert alert-success">'+
@@ -121,10 +98,10 @@ $(document).ready(function() {
     //                        inicio:  CtrMeses.retDataAtualParaMysql('primeira'),
     //                        termino: CtrMeses.retDataAtualParaMysql('ultima')
     //                    };
-    //                    ctrTabelaProposta.tbody.show();
-    //                    ctrTabelaProposta.popular(Proposta);
+    //                    TelaLista.ctrTabelaProposta.tbody.show();
+    //                    TelaLista.ctrTabelaProposta.popular(Proposta);
     //                }
-    //                ctrTabelaProposta.esconderCtrSalvar()
+    //                TelaLista.ctrTabelaProposta.esconderCtrSalvar()
     //            });
             }
         },
@@ -202,11 +179,11 @@ $(document).ready(function() {
                         li.addClass('active');
                         me.dt.mes = a.attr('href');
                         me.dt.ulti_dia_mes = me.daysInMonth(me.dt.mes, me.dt.ano);
-                        Proposta.vig_inicio = {
+                        TelaFiltros.Proposta.vig_inicio = {
                             dt1: me.retDataAtual().inicio,
                             dt2: me.retDataAtual().termino
                         };
-                        ctrTabelaProposta.popular(Proposta);
+                        TelaLista.ctrTabelaProposta.popular(TelaFiltros.Proposta);
                     });
                 });
             },
@@ -344,12 +321,12 @@ $(document).ready(function() {
     //                });
     //            });
             },
-            popular: function(dados){
+            popular: function(proposta){
                 var me = this,
-                    _dados,
+                    dados,
                     callback;
 
-                _dados   = {proposta: JSON.stringify(dados)}
+                dados   = {proposta: JSON.stringify(proposta)}
                 callback = function(){
     //                me.colorirLinhas(  me.elem.find('tr:not([class="cabecalho"])')  );
     //                me.colorir_options();
@@ -359,7 +336,7 @@ $(document).ready(function() {
     //                me.setButtonsDeletar();
     //                me.setCheckTodos();
                 };
-                $.post( "view_lista_pospostas.php", _dados, function( data ) {
+                $.post( "view_lista_pospostas.php", dados, function( data ) {
                     me.tbody.empty().append( data );
                         callback();
                 });
@@ -474,6 +451,45 @@ $(document).ready(function() {
             this.elem.slideUp("slow");
             TelaLista.elem.slideDown("slow");
         },
+        Proposta: {
+            id         : "999",
+            proposta   : "",
+            segurado   : "",
+            vig_inicio : {
+                dt1: "",
+                dt2: ""
+            },
+            vig_termino : {
+                dt1: "",
+                dt2: ""
+            },
+            detalhes   : "",
+            cia        : "",
+            tipo       : "",
+            apolice    : "",
+            prem_liq   : "",
+            comissao   : "",
+            status     : "",
+
+            filtrado: function(){
+                var flag = false;
+
+                //id
+                //renovação
+                if(this.proposta != "")   {flag = true}
+                if(this.segurado != "")   {flag = true}
+                if(this.vig_inicio != "" && this.vig_termino != ""){flag = true;}
+                if(this.detalhes != "")   {flag = true}
+                if(this.cia != "")        {flag = true}
+                if(this.tipo != "")       {flag = true}
+                if(this.apolice != "")    {flag = true}
+                if(this.prem_liq != "")   {flag = true}
+                if(this.comissao != "")   {flag = true}
+                if(this.status != "")     {flag = true}
+
+                return flag;
+            }
+        },        
         CtrFiltrar: {
             elem: {},
             btnFiltrar: {},
@@ -487,7 +503,7 @@ $(document).ready(function() {
             },
             setButtonAplicar: function(){
                 this.btnAplicar.click(function(){
-                    console.log("aplicar");
+                    console.log(TelaFiltros.Proposta);
                 })
             },
             setButtonCancelar: function(){
@@ -498,6 +514,7 @@ $(document).ready(function() {
         }
     }
 
+//                     propTemp = jQuery.extend({}, Proposta);
 
 
 //    (function(){
