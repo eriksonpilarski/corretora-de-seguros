@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `propostas_` (
+CREATE TABLE IF NOT EXISTS `propostas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `proposta` int(11) DEFAULT NULL,
   `segurado` varchar(200) DEFAULT NULL,
@@ -14,4 +14,9 @@ CREATE TABLE IF NOT EXISTS `propostas_` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-INSERT INTO propostas_ (SELECT id, proposta, segurado, renovacao, vencimento, detalhes, cia, tipo, apolice, prem_liq, comissao, status FROM propostas )
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(200) NOT NULL,
+  `senha` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
