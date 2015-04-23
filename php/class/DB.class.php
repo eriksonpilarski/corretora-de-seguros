@@ -37,8 +37,8 @@ abstract class DB {
     static function conectar() {
         $local   = "localhost";
         $usuario = "root";
-        $senha   = "beta16";
-        $base    = "meridional-v1.0";
+        $senha   = "1234";
+        $base    = "devfuria_corretora";
 
         # if não há conexão...
         if (empty(self::$pdo)) {
