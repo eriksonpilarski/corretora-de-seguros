@@ -28,7 +28,7 @@ class Propostas {
             $proposta->vencimento = DatasFuncAux::data_converte_para_mysql( $proposta->vencimento );
 
             $s  = "";
-            $s  = "INSERT INTO porpostas_ VALUES ( ";
+            $s  = "INSERT INTO propostas VALUES ( ";
             $s .= "null, ".
                     "'{$proposta->renovacao}', ".
                     "'{$proposta->proposta}', ".
@@ -76,7 +76,7 @@ class Propostas {
             $proposta->vencimento = DatasFuncAux::data_converte_para_mysql( $proposta->vencimento );
 
             $s  = "";
-            $s  = "UPDATE porpostas_ SET ";
+            $s  = "UPDATE propostas SET ";
             $s .= "id = {$proposta->id}, ".
                     "renovacao = '{$proposta->renovacao}', ".
                     "proposta = '{$proposta->proposta}', ".
@@ -115,7 +115,7 @@ class Propostas {
             throw new Exception(get_class($this).": Como deletar sem o ID ?");
         }
 
-        $sql = "DELETE FROM porpostas_ WHERE id = $id LIMIT 1";
+        $sql = "DELETE FROM propostas WHERE id = $id LIMIT 1";
 
 //        var_dump($sql);
         $pdo = DB::conectar();
@@ -136,7 +136,7 @@ class Propostas {
         $propostas = array();
 
         $pdo = DB::conectar();
-        $sql = "SELECT * FROM propostas_ $criterio";
+        $sql = "SELECT * FROM propostas $criterio";
         //var_dump($sql);
 
         $result = $pdo->query($sql);
