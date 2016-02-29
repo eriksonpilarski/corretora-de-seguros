@@ -2,7 +2,7 @@ $(document).ready(function(){
     var ajax = {
         logar: function(dados){
             $.post( "index_action.php", dados, function( resp ) {
-                if(resp == ""){
+                if($.trim(resp) == "logou-se"){
                     $(location).attr("href", "../propostas/index.php");
                 } else {
                     $('#msg').empty().append( resp );

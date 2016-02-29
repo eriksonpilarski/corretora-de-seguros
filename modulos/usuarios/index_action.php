@@ -28,14 +28,11 @@ try {
     if(  ! $usuario   )
         throw new Exception("Login ou senha incorretos !");
 
-
     # Criar sessions
     $_SESSION['id-usuario'] = $usuario ->id;
-
+    echo "logou-se";
 
 } catch (Exception $exc){
     echo $exc->getMessage();
 }
-
-
 ?>
