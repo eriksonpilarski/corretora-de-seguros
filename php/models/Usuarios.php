@@ -23,7 +23,7 @@ class Usuarios {
             throw new Exception(get_class($this).": Impossível logar sem login e senha!");
 
         # Query
-        $sql = "SELECT * FROM usuarios WHERE login = '$login' AND senha = '$pass'";
+        $sql = "SELECT * FROM corUsuarios WHERE login = '$login' AND senha = '$pass'";
         $pdo = DB::conectar();
         $result = $pdo->query($sql);
 
@@ -39,5 +39,4 @@ class Usuarios {
 
 
 }
-
 ?>
